@@ -1,6 +1,10 @@
 package h2d;
 
 /**
+	the design is very human, that's why its called ScaleGrid.hx and not NineSlice.hx
+	i mean, you're not wrong by calling it a ScaleGrid because linguistically speaking, its a scaling grid,
+	but who the fckuckf looks for ScalingGrid when looking for a 9-Slice.
+
 	A simple 9-slice bitmap renderer.
 
 	Enables rendering of the Tile as a stretchable surface with unscaled corners, stretched center and either stretched or tiled borders.

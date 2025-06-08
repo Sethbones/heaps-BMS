@@ -13,19 +13,29 @@ package hxd;
 class App implements h3d.IDrawable {
 
 	/**
-		Rendering engine.
+		The rendering engine.
 	**/
 	public var engine(default,null) : h3d.Engine;
 
 	/**
-		Default 3D scene.
+		The Default 3D scene.
 	**/
-	public var s3d(default,null) : h3d.scene.Scene;
+	public var s3d(default,null) : h3d.scene.Scene; //this needs to be figured out, this is not clean, why is scene in its own folder while not like that in h2d?
 
 	/**
-		Default 2D scene.
+		The Default 2D scene.
 	**/
 	public var s2d(default,null) : h2d.Scene;
+
+	/**
+		The default HUD and GUI scene.
+	**/
+	// public var sui(default,null) : h2d.Scene;
+
+	/**
+		The final render scene, draws all other scenes on top of it
+	*/
+	//public var rnd(default,null) : h2d.Scene;
 
 	/**
 		Input event listener collection.
@@ -127,6 +137,7 @@ class App implements h3d.IDrawable {
 	public function render(e:h3d.Engine) {
 		s3d.render(e);
 		s2d.render(e);
+		//sui.render(e);
 	}
 
 	function mark(name : String) {
@@ -191,6 +202,9 @@ class App implements h3d.IDrawable {
 	function init() {
 	}
 
+	/**
+	 * seems to be similar to update(), except it runs on a seperate function to avoid conflicts when overriding
+	 */
 	function mainLoop() {
 		hxd.Timer.update();
 		sevents.checkEvents();
@@ -201,6 +215,10 @@ class App implements h3d.IDrawable {
 		if( s2d != null ) s2d.setElapsedTime(dt);
 		if( s3d != null ) s3d.setElapsedTime(dt);
 		engine.render(this);
+		//updates the children of the currently active scene. can be removed for manual control, for most situations, leave it as is
+		//if( s2d != null ) s2d.update();
+		//if( s3d != null ) s3d.update();
+		//if( sui != null ) sui.update();
 	}
 
 	/**

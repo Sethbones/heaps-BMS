@@ -1,5 +1,14 @@
 package h2d;
 
+/**
+ * i have no idea, no info on it either, and it was added kind of recently too, and it seems to be maintained, i just have no idea what it does
+ * 
+ * https://github.com/HeapsIO/heaps/issues/533 this might give a clue
+ * 
+ * my educated guess would be that it doesn't render the screen until a timer is done and once its done, it starts rendering
+ * 
+ * no idea why this would be here like this, this should be a part of a game, or a sample, not a part of the engine
+ */
 class LoadingScene extends h2d.Scene {
 	var renderTarget : h3d.mat.Texture;
 	var presentCooldown : Float;
@@ -15,7 +24,8 @@ class LoadingScene extends h2d.Scene {
 		if ( time - lastPresentTime < presentCooldown)
 			return;
 		lastPresentTime = time;
-
+	
+	//some black magic shit
 	#if usesys
 		haxe.System.emitEvents(@:privateAccess hxd.Window.inst.event);
 	#elseif hldx
@@ -29,6 +39,7 @@ class LoadingScene extends h2d.Scene {
 			renderTarget = new h3d.mat.Texture(engine.width, engine.height, [Target]);
 		}
 
+		
 		engine.pushTarget(renderTarget);
 		super.render(engine);
 		engine.popTarget();

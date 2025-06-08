@@ -3631,7 +3631,7 @@ class ClipperOffset
 	private var m_destPolys : IPolygons;
 	private var m_srcPoly : IPolygon;
 	private var m_destPoly : IPolygon;
-	private var m_normals : Array<Point>;
+	private var m_normals : Array<h2d.Vector2>;
 	private var m_delta : Float;
 	private var m_sinA : Float;
 	private var m_sin : Float;
@@ -3735,13 +3735,13 @@ class ClipperOffset
     {
 		var dx : Float = (pt2.x - pt1.x);
 		var dy : Float = (pt2.y - pt1.y);
-		if ((dx == 0) && (dy == 0)) return new Point();
+		if ((dx == 0) && (dy == 0)) return new h2d.Vector2();
 
 		var f = 1 / Math.distance(dx, dy);
 		dx *= f;
 		dy *= f;
 
-		return new Point(dy, -dx);
+		return new h2d.Vector2(dy, -dx);
     }
     //------------------------------------------------------------------------------
 
@@ -3834,10 +3834,10 @@ class ClipperOffset
 				var n = m_normals[len - 1];
 				var j = len - 1;
 				while(j > 0) {
-					m_normals[j] = new Point(-m_normals[j - 1].x, -m_normals[j - 1].y);
+					m_normals[j] = new h2d.Vector2(-m_normals[j - 1].x, -m_normals[j - 1].y);
 					j--;
 				}
-				m_normals[0] = new Point(-n.x, -n.y);
+				m_normals[0] = new h2d.Vector2(-n.x, -n.y);
 				k = 0;
 				var j = len - 1;
 				while(j > 0) {
@@ -3863,7 +3863,7 @@ class ClipperOffset
 					var j = len - 1;
 					k = len - 2;
 					m_sinA = 0;
-					m_normals[j] = new Point(-m_normals[j].x, -m_normals[j].y);
+					m_normals[j] = new h2d.Vector2(-m_normals[j].x, -m_normals[j].y);
 					if (node.endtype == EndType.OpenSquare)
 						doSquare(j, k);
 					else
@@ -3873,11 +3873,11 @@ class ClipperOffset
 				//re-build m_normals ...
 				var j = len - 1;
 				while(j > 0) {
-					m_normals[j] = new Point( -m_normals[j - 1].x, -m_normals[j - 1].y);
+					m_normals[j] = new h2d.Vector2( -m_normals[j - 1].x, -m_normals[j - 1].y);
 					j--;
 				}
 
-				m_normals[0] = new Point(-m_normals[1].x, -m_normals[1].y);
+				m_normals[0] = new h2d.Vector2(-m_normals[1].x, -m_normals[1].y);
 
 				k = len - 1;
 				var j = k - 1;

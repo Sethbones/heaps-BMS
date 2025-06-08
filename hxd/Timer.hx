@@ -1,8 +1,12 @@
 package hxd;
 
 /**
-	The Timer class acts as a global time measurement that can be accessed from various parts of the engine.
+	The Time class acts as a global time measurement that can be accessed from various parts of the engine.
 	These three values are representation of the same underlying calculus: tmod, dt, fps
+	dt - Delta Time
+	tmod - Time MODifier, and not terraria mod loader, needs a new name
+	fps - Frames Per Second
+
 **/
 class Timer {
 

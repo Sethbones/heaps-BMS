@@ -182,7 +182,7 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 	**/
 	inline public function getAbsPos() {
 		syncPos();
-		var m = new h2d.col.Matrix();
+		var m = new h2d.Matrix();
 		m.a = matA;
 		m.b = matB;
 		m.c = matC;
@@ -354,9 +354,9 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 		Convert a local position (or `[0,0]` if `pt` is null) relative to the object origin into an absolute screen position, applying all the inherited transforms.
 		@param pt An optional position to convert and return. Allocates new Point at 0,0 position if not set. Modifies the Point instance as is.
 	**/
-	public function localToGlobal( ?pt : h2d.col.Point ) : h2d.col.Point {
+	public function localToGlobal( ?pt : h2d.Vector2 ) : h2d.Vector2 {
 		syncPos();
-		if( pt == null ) pt = new h2d.col.Point();
+		if( pt == null ) pt = new h2d.Vector2();
 		var px = pt.x * matA + pt.y * matC + absX;
 		var py = pt.x * matB + pt.y * matD + absY;
 		pt.x = px;
@@ -368,7 +368,7 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 		Convert an absolute screen position into a local position relative to the object origin, applying all the inherited transforms.
 		@param pt A position to convert and return. Modifies the Point instance as is.
 	**/
-	public function globalToLocal( pt : h2d.col.Point ) : h2d.col.Point {
+	public function globalToLocal( pt : h2d.Vector2 ) : h2d.Vector2 {
 		syncPos();
 		pt.x -= absX;
 		pt.y -= absY;
@@ -498,7 +498,7 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 		Populates `m` with current absolute object transform values. See `Object.getAbsPos` for up-to-date values.
 	**/
 	@:dox(show)
-	function getMatrix( m : h2d.col.Matrix ) {
+	function getMatrix( m : h2d.Matrix ) {
 		m.a = matA;
 		m.b = matB;
 		m.c = matC;
@@ -578,11 +578,30 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 	}
 
 	/**
-		Override this method in order to add custom graphics rendering to your Object.
+	 	//note: this needs to be validated
+		a traditional draw function, similar to other game dev frameworks (for example: MonoGame and LOVE2D)
+
+		in this engine, it's optional, as sprites and bitmaps update by themselves,
+		and is really only useful if you need manual control over the object's rendering.
+		beware, it's a very easy way to kill the performance.
+
+		Override this method to add custom, per frame graphics rendering to your Object.
 		`draw` is invoked before rendering of the object children.
+
+		////
+		so, somehow this is called automagically, and i still don't know how
+		also the absolute comedy that is bitmaps being updated automatically, but a global update function? nooooo.
 	**/
 	@:dox(show)
 	function draw( ctx : RenderContext ) {
+	}
+
+	/**
+	 * the object's independant update loop, similar to every other game engine
+	 * //not implemented yet
+	*/
+	public function update(){
+
 	}
 
 	/**
@@ -836,7 +855,7 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 		bounds.doIntersect(view);
 	}
 
-	static var tmpPoint = new h2d.col.Point();
+	static var tmpPoint = new h2d.Vector2();
 	function drawFilters( ctx : RenderContext ) {
 		if( !ctx.pushFilter(this) ) return;
 

@@ -1,0 +1,8 @@
+Folder Structure:
+h2d - 2D rendering code
+h3d - 3D rendering code
+hxd - engine code and macros
+hxsl- shader rendering code
+hui - UI specific 2D rendering code
+samples - out of date examples of engine usage
+tools - i have no idea, old tools that do something, non of the projects in the tools directory are up to date to any extant

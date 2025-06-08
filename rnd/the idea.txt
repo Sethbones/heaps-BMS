@@ -1,0 +1,2 @@
+the idea for rnd is for it to be a much more limited scene, that is designed for one purpose only:
+drawing other scenes on top of it and to use screen shaders with ease.

@@ -146,7 +146,7 @@ class Interactive extends Object implements hxd.SceneEvents.Interactive {
 	@:dox(hide)
 	@:noCompletion public function handleEvent( e : hxd.Event ) {
 		if( maskedBounds != null && checkBounds(e) ) {
-			var pt = new h2d.col.Point(e.relX, e.relY);
+			var pt = new h2d.Vector2(e.relX, e.relY);
 			localToGlobal(pt);
 			if( pt.x < maskedBounds.xMin || pt.y < maskedBounds.yMin || pt.x > maskedBounds.xMax || pt.y > maskedBounds.yMax ) {
 				e.cancel = true;

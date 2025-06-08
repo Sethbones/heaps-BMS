@@ -344,8 +344,8 @@ class RenderContext extends h3d.impl.RenderContext {
 		@param into The 2D Point instance into which the scale is written. Creates a new Point if null.
 		@returns The current filter resolution scale or `{ 1, 1 }` point.
 	**/
-	public function getFilterScale( ?into : h2d.col.Point ) {
-		if ( into == null ) into = new h2d.col.Point();
+	public function getFilterScale( ?into : h2d.Vector2 ) {
+		if ( into == null ) into = new h2d.Vector2();
 		if ( inFilter != null ) {
 			into.set(inFilter.scaleX, inFilter.scaleY);
 		} else {

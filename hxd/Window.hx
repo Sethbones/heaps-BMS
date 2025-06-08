@@ -8,6 +8,7 @@ enum DisplayMode {
 	Fullscreen;
 }
 
+//from the looks of it compared to the other files around it, this was either for flash or its a template for the others to use
 class Window {
 
 	var resizeEvents : List<Void -> Void>;

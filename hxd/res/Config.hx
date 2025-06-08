@@ -23,11 +23,12 @@ class Config {
 		"bdf" => "hxd.res.BDFFont",
 		"wav,mp3,ogg" => "hxd.res.Sound",
 		"tmx" => "hxd.res.TiledMap",
+		//"world" = "hxd.res.TiledWorld", //soon
 		"atlas" => "hxd.res.Atlas",
 		"grd" => "hxd.res.Gradients",
 		#if hide
 		"prefab,fx,fx2d,l3d" => "hxd.res.Prefab",
-		"world" => "hxd.res.World",
+		//"world" => "hxd.res.World", //res.world was removed in jan2 2024, yet this stayed, the hell?
 		"animgraph" => "hxd.res.AnimGraph",
 		#end
 	];
@@ -38,6 +39,8 @@ class Config {
 
 	/**
 		File extensions ignored by the resource scan
+		
+		Fork Note: figure out why whatever happend here happend
 	**/
 	public static var ignoredExtensions = [
 		"gal" => true, // graphics gale source
@@ -51,6 +54,8 @@ class Config {
 		Example: `ignoredDirs = [ "backups"=>true ]`
 	**/
 	public static var ignoredDirs : Map<String,Bool> = [];
+
+	//should probably have a directory whitelist option too 
 
 
 	/**
@@ -76,6 +81,7 @@ class Config {
 			pairedExtensions.set(main, shadow);
 	}
 
+	//this is erroring in vscode, but only in here, odd.
 	static function defined( name : String ) {
 		return haxe.macro.Context.defined(name);
 	}
@@ -91,6 +97,9 @@ class Config {
 			ignoredExtensions.set("mp3", true);
 			#end
 		default:
+			//so from what i gather, .ogg playback is not natively supported in javascript, and from what i gather some other engines either use a unique library to read oggs
+			//or just convert them to another format on compile.
+			//as for what are those other engines, i have no idea, i found this information on reddit.
 			#if !stb_ogg_sound
 			ignoredExtensions.set("ogg", true);
 			#end

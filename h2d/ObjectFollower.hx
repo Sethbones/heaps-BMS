@@ -1,6 +1,9 @@
 package h2d;
 
 /**
+	so my guess for this is tracking a 3d position with a 2d estimate based on its x and y axis.
+	for things like a minimap?
+ 
 	Follows the 3D object position in current 3D camera, synchronizing the follower position to projected 2D position of the followed object.
 **/
 @:uiNoComponent

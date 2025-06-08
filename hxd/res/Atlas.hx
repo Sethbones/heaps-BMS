@@ -1,5 +1,16 @@
 package hxd.res;
-
+/**
+ * Sprite Atlas support
+ * 
+ * programs designed to be used with this:
+ * 
+ * `free-tex-packer` https://neeeoo.github.io/funkin-packer/
+ * 
+ * https://gamefromscratch.com/haxe-and-heaps-tutorial-series-2d-animation-and-spritesheets/ //found more here
+ * 
+ * i have no idea how this works myself, this has no documentation
+ * 
+ */
 class Atlas extends Resource {
 
 	var contents : Map<String,Array<{ t : h2d.Tile, width : Int, height : Int }>>;

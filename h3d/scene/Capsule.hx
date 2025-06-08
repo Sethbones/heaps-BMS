@@ -1,5 +1,6 @@
 package h3d.scene;
 
+//no idea what this is
 class Capsule extends Graphics {
 
 	public var color : Int;

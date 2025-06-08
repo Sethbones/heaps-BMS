@@ -5,6 +5,8 @@ import h2d.impl.BatchDrawState;
 
 /**
 	TileGroup internal class for batched quad geometry rendering.
+
+	in human terms, this means drawing a ton of different static tiles without making the computer go boom
 **/
 @:dox(hide)
 class TileLayerContent extends h3d.prim.Primitive {

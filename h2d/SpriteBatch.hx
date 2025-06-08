@@ -184,6 +184,8 @@ class BasicElement extends BatchElement {
 	SpriteBatch uploads GPU buffer each frame by collecting data from added `BatchElement` instance.
 	Due to that, dynamically removing and adding new geometry is fairly simple.
 
+	in human terms, this means drawing a fuck ton of the same tile while being able to move each tile seperately without making the computer go boom
+
 	Usage note: While SpriteBatch allows for multiple unique textures, each texture swap causes a new drawcall,
 	and due to that it's recommended to minimize the amount of used textures per SpriteBatch instance,
 	ideally limiting to only one texture.

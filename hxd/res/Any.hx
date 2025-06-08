@@ -17,6 +17,9 @@ private class SingleFileSystem extends hxd.fs.BytesFileSystem {
 
 }
 
+/**
+ * any is for any file format not assigned to a supported one, or binary data
+ */
 @:access(hxd.res.Loader)
 class Any extends Resource {
 

@@ -770,8 +770,8 @@ class MatrixImpl {
 		if( col.gain != null ) colorGain(col.gain.color, col.gain.alpha);
 	}
 
-	public inline function toMatrix2D( ?m : h2d.col.Matrix ) {
-		if( m == null ) m = new h2d.col.Matrix();
+	public inline function toMatrix2D( ?m : h2d.Matrix ) {
+		if( m == null ) m = new h2d.Matrix();
 		m.a = _11;
 		m.b = _12;
 		m.c = _21;

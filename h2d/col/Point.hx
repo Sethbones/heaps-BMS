@@ -2,8 +2,29 @@ package h2d.col;
 import hxd.Math;
 
 /**
-	A simple 2D position/vector container.
-	@see `h2d.col.IPoint`
+	idea 3:
+
+	A simple 2D collision point
+
+	idea 2:
+
+	the current idea is to completely make this child based.
+
+	the theory is, i'm already making it follow something, might as well attach it to it to save a couple lines of code
+
+	this is what most game engines do, you can't just create a collision shape and have it run around on its own, it has to be attached to something in order to function
+
+	bro what the fuck is this engine, why isn't this just a vector2?
+	it basically is just a vector2 
+
+	NEW Description idea:
+
+	A stripped down Vector2, designed to serve a specific purpose.
+
+	old:
+
+	A simple 2D position/vector container, that is attached to an object of one's choice.
+	@see `h2d.col.IPoint` for an integer based Point
 **/
 class PointImpl #if apicheck implements h2d.impl.PointApi<Point,Matrix> #end {
 
@@ -16,7 +37,7 @@ class PointImpl #if apicheck implements h2d.impl.PointApi<Point,Matrix> #end {
 	**/
 	public var y : Float;
 
-	// -- gen api
+	// -- gen api, yes sir.
 
 	/**
 		Create a new Point instance.

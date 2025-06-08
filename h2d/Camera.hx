@@ -389,7 +389,7 @@ class Camera {
 
 		Requires Camera being attached to a Scene.
 	**/
-	public function screenToCamera( pt : h2d.col.Point ) {
+	public function screenToCamera( pt : h2d.Vector2 ) {
 		checkScene();
 		var x = (pt.x - scene.offsetX) / scene.viewportScaleX - absX;
 		var y = (pt.y - scene.offsetY) / scene.viewportScaleY - absY;
@@ -402,7 +402,7 @@ class Camera {
 
 		Requires Camera being attached to a Scene.
 	**/
-	public function cameraToScreen( pt : h2d.col.Point ) {
+	public function cameraToScreen( pt : h2d.Vector2 ) {
 		checkScene();
 		var x = pt.x;
 		var y = pt.y;
@@ -416,7 +416,7 @@ class Camera {
 
 		Requires Camera being attached to a Scene.
 	**/
-	public function sceneToCamera( pt : h2d.col.Point ) {
+	public function sceneToCamera( pt : h2d.Vector2 ) {
 		checkScene();
 		var x = pt.x - absX;
 		var y = pt.y - absY;
@@ -430,7 +430,7 @@ class Camera {
 
 		Requires Camera being attached to a Scene.
 	**/
-	public function cameraToScene( pt : h2d.col.Point ) {
+	public function cameraToScene( pt : h2d.Vector2 ) {
 		checkScene();
 		var x = pt.x;
 		var y = pt.y;

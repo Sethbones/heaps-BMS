@@ -1,5 +1,17 @@
 package h2d;
-
+/**
+ * to describe it simply:
+ * 
+ * CastleDB is a piece of ancient software that was technically made for heaps, basically tiled if it was made with no budget
+ * 
+ * its technically still in active development, but, its development basically shifted into the creation of HIDE (Citation Needed)
+ * 
+ * and as such HIDE can view and manage CastleDB files
+ * 
+ * not these files though, the 2D level editor side of castleDB hasn't been updated in about 5 years, and as far as i'm aware, HIDE can't read castledb levels
+ * 
+ * the code here, despite its age, is quite an interesting read, even if its basically completely useless, and is basically bloat
+ */
 #if !castle
 "Please compile with -lib castle"
 #end

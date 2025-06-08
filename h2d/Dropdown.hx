@@ -1,5 +1,8 @@
 package h2d;
 
+/**
+ * uh, what is the point of this?, if there is a point to this, why is it called "Fake"?
+ */
 private class Fake extends Object {
 	var dd : Dropdown;
 	public function new(dd : Dropdown) {

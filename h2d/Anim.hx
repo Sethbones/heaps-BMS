@@ -1,6 +1,12 @@
 package h2d;
 
 /**
+	the animation system used here is very limited, if you only need to run an animation, without the need for any sort of control, then this will suffice
+	
+	however if you need proper control over things like the speed of each frame, or multiple animations on a single object,
+	then you're going to have to write your own animation system
+
+
 	Displays an animated sequence of bitmap Tiles on the screen.
 
 	Anim does not provide animation sequence management and it's up to user on how to implement it.

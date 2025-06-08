@@ -116,6 +116,7 @@ class DepthMap {
 	}
 }
 
+//the what now?
 /**
 	An advanced double-pass rendering class that utilizes a z-culling on an opaque objects.
 

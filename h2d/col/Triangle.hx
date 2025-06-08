@@ -1,6 +1,9 @@
 package h2d.col;
 /**
-	A simple triangle collider.
+	from the looks of it, this file is unfinished/abandoned, its still seems usable, just not very polished, a lot of the collsion shapes are like this
+  
+ 
+	A simple triangle collider. now without a matching primitive to preview it.
 **/
 class Triangle extends Collider {
 

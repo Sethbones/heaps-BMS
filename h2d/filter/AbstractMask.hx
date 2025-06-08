@@ -35,8 +35,8 @@ class Hide extends Filter {
 class AbstractMask extends Filter {
 
 	var hide : Hide;
-	var maskMatrix : h2d.col.Matrix;
-	var tmpMatrix : h2d.col.Matrix;
+	var maskMatrix : h2d.Matrix;
+	var tmpMatrix : h2d.Matrix;
 	var obj : h2d.Object;
 	var bindCount : Int = 0;
 	/**
@@ -58,8 +58,8 @@ class AbstractMask extends Filter {
 		super();
 		hide = new Hide();
 		this.mask = mask;
-		this.maskMatrix = new h2d.col.Matrix();
-		tmpMatrix = new h2d.col.Matrix();
+		this.maskMatrix = new h2d.Matrix();
+		tmpMatrix = new h2d.Matrix();
 	}
 
 	function set_maskVisible(b) {

@@ -1,0 +1,5 @@
+soon
+
+the current idea is to move all h2d parts that are ui related to this folder, create a render layer by the name of sui/rnd, and essentially splitting 2d game and ui
+
+this is intended to depretzel the work flow, keeping everything that matters where it belongs instead of creating a mess in combining ui and game work

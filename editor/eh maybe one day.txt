@@ -1,0 +1,6 @@
+the main issue is:
+do i make it a web app and potentially cripple the performance for the sake of beauty or find a way to load the engine through something like flutter
+or heck maybe i would even need to write my own framework, don't know right now
+
+this is like an end goal for the engine, so this folder will likely stay empty for years
+for now Tiled is a good option

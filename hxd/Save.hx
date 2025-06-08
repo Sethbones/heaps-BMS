@@ -1,5 +1,5 @@
 package hxd;
-
+//documentaion, i'm not used to this
 /**
 	Save provides simple interface to save and load serialized user data.
 	Data is serialized to String with `haxe.Serializer` and then stored in text form.
@@ -7,7 +7,7 @@ package hxd;
 class Save {
 
 	static var cur = new Map<String,String>();
-	static var SALT = "s*al!t";
+	static var SALT = "s*al!t"; //i prefer MSG
 
 	static function makeCRC( data : String ) {
 		return haxe.crypto.Sha1.encode(data + haxe.crypto.Sha1.encode(data + SALT)).substr(4, 32);

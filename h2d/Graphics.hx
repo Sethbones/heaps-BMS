@@ -2,6 +2,7 @@ package h2d;
 import h2d.impl.BatchDrawState;
 import hxd.Math;
 import hxd.impl.Allocator;
+//will soon be renamed to h2d.prim, to be in line with h3d.prim
 
 private typedef GraphicsPoint = hxd.poly2tri.Point;
 

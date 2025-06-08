@@ -97,7 +97,7 @@ class Filter {
 		@param scale Contains the desired rendering resolution scaling which should be accounted when constructing the bounds.
 		Can be edited to override provided scale values.
 	**/
-	public function getBounds( s : Object, bounds : h2d.col.Bounds, scale : h2d.col.Point ) {
+	public function getBounds( s : Object, bounds : h2d.col.Bounds, scale : h2d.Vector2 ) {
 		s.getBounds(s, bounds);
 		bounds.xMin = bounds.xMin * scale.x - boundsExtend;
 		bounds.xMax = bounds.xMax * scale.x + boundsExtend;

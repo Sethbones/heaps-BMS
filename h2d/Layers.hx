@@ -5,6 +5,8 @@ package h2d;
 
 	Hierarchically organizes objects based on their layer.
 	Supports per-layer Y-sorting through `Layers.ysort`.
+
+	Not intended to be used as is, layers are added automatically as a part of scene.add
 **/
 class Layers extends Object {
 

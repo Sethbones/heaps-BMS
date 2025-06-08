@@ -1,7 +1,6 @@
 package h2d;
 
 import hxd.Key;
-
 /**
 	The console argument type.
 **/
@@ -52,6 +51,9 @@ typedef ConsoleArgDesc = {
 }
 
 /**
+	note: if you're going to use the console, render it on a seperate scene and render that scene on top of your current scene,
+	i assume its designed to be used this way, but the console has no useful documentation
+  
 	A simple debug console integration.
 
 	Console can be focused manually through `Console.show` and `Console.hide` methods
@@ -312,6 +314,14 @@ class Console #if !macro extends h2d.Object #end {
 		tf.focus();
 		tf.cursorIndex = tf.text.length;
 		logIndex = -1;
+	}
+
+	/**
+	 * Toggles the Console on and off
+	 */
+	public function toggle(){
+		if (isActive()) hide();
+		if (!isActive()) show(); 
 	}
 
 	function getCommandSuggestion(cmd : String) : String {

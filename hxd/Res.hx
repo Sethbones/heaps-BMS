@@ -6,6 +6,7 @@ package hxd;
 class Res {
 
 	#if !macro
+	/** can also be used as is to load a file manually*/
 	public static function load(name:String) {
 		return loader.load(name);
 	}

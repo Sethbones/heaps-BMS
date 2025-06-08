@@ -581,7 +581,13 @@ class Scene extends Layers implements h3d.IDrawable implements hxd.SceneEvents.I
 	}
 
 	/**
-		Add an event listener that will capture all events that were not caught by an `h2d.Interactive`
+		Add an event listener that will capture all mouse events that were not caught by an `h2d.Interactive`
+		used like this:
+		```
+		s2d.addEventListener(function(event:hxd.Event){
+			trace(event);
+		}
+		```
 	**/
 	public function addEventListener( f : hxd.Event -> Void ) {
 		eventListeners.push(f);

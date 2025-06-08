@@ -1,6 +1,7 @@
 package h2d;
 
 #if (hl && hlvideo)
+//video playback
 
 enum FrameState {
 	Free;

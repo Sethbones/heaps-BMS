@@ -1,0 +1,13 @@
+with the way collision is designed, there's no option to easily visualize the collision's shape
+not only that, while primitives can be attached to an object and be scaled and moved alongside it, this is simply not possible here as it expects you to manually attach the collision to another object's x and y.
+this is really stupid, what if i want to scale up a collision, why should i manually apply it instead of letting it figure it out by itself
+
+the solutions:
+A. have a single file called shape.hx that links to all other shapes and then you can call new h2d.col.shape(collisionshape:enum or something idk);
+and then it will make creating shapes more streamlined, and that way i can also shove some exclusive macros relating to it
+
+B. merge everything into one giant file, which won't make for the cleanest solution
+
+
+things i missed: these points, as with all collision types, are designed to be called every frame, now i didn't know that, which make half the yapping here irrelevent
+though i have conflicting info about this, some files use a singular collider shape, while samples draw them multiple times

@@ -3,7 +3,7 @@ package h2d;
 /**
 	A base class for all 2D objects that will draw something on the screen.
 
-	Unlike Object base class, all properties of Drawable only apply to the current object and are not inherited by its children.
+	Unlike an h2d.Object based class, all properties of Drawable only apply to the current object and are not inherited by its children.
 **/
 class Drawable extends Object {
 
