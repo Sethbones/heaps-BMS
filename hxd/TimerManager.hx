@@ -1,33 +1,4 @@
 package hxd;
-
-/**
- * @param loops how many times the timer should go off. -1 means it will keep looping forever, use with caution.
- * @param paused pause or unpause a timer, a paused timer does not process til its unpaused
- * @param endEvent an optional event that kicks off when a timer is finished
- * @param keep optionally choose to keep the timer between scenes
- * @param autostart optionally set if the timer should start on its own or not, overrides paused if false
- * @param identifier an optional identifier for tracking a specific timer by string name
- * @param delay an optional delay dictating how long before a timer actually starts
- * @param ignoreTimeScale currently there is no time scale implemented but that's on the roadmap
- * 
-*/
-typedef TimerOptions = {
-	var ?endEvent: Void->Void;
-	var ?loops:Int; //copied from flxtimer, where one is one loop and 0 means infinite loops
-	var ?paused:Bool;
-	var ?keep:Bool; //keeps the timer from being destroyed during scene switches, use if needed.
-	var ?autostart:Bool; //if it should start on its own or not
-	var ?identifier: String; //the timer's unique identifier name
-	
-	var ?delay: Float; //unimplemented //delay till timer start
-	var ?ignoreTimeScale: Bool; //time scale is not implemented in this engine to my knowledge
-
-	var ?duration: Float; //duration override, to be used after a timer has already started
-	var ?mainEvent: Void->Bool; //main event override, to be used after a timer has already started
-
-}
-
-
 /**
  * @param duration the duration of the timer
  * @param event the main function that acts every end of loop.
