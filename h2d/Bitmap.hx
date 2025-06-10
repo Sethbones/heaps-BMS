@@ -30,6 +30,13 @@ class Bitmap extends Drawable {
 	**/
 	public var height(default,set) : Null<Float>;
 
+	//there doesn't seem to be a way to directly load an image from the source code directory, so base64 is used for now, at least until a better solution is found
+	/**
+	 * a placeholder image that is loaded when a null tile is given, that should be a very occurance but it could still be an occurance
+	 */
+	var placeholder(default, null):String = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAOZJREFUOI2lkzsOwjAMhr9UdOC9tIfhBhyJI7BwCjbExsLIxgl6CcqCKqgojzCYQGkcGPBiJfL/+3PkGMDih1Hu0GoNYKvV85BIjkeekQW4bOVwXkruzaD1Yb+X7ArjkS70CGwBl43OXAXub1nCcL0nCswKwDWDKP1WUZuxSXHNPgvvud8dMCpBUwxhEmdgTD8sbpq47nUDwdyFxe+atkpgbfEdVehEfBgnuN1Q30AzceJmvPbgvFBw87DY5t3fexCl4c4uWuB3rzYiGsxLoOQ09UlMenwb6MLXiHQm8mCnaekb/fudH9p/YHVXjw4OAAAAAElFTkSuQmCC";
+
+
 	/**
 		Create a Bitmap with specified tile and parent object.
 		@param tile A Tile that should be rendered by this Bitmap.
@@ -37,7 +44,14 @@ class Bitmap extends Drawable {
 	**/
 	public function new( ?tile : Tile, ?parent : h2d.Object ) {
 		super(parent);
-		this.tile = tile;
+		if (tile != null){
+			this.tile = tile;
+		}
+		else{
+			//there doesn't seem to be a way to directly load an image from the source code's directory
+			//chances you won't ever see this, but it in rare occasions it could still show up.
+			this.tile = hxd.res.Any.fromBytes("", haxe.crypto.Base64.decode(placeholder) ).toTile();
+		}
 	}
 
 	override function getBoundsRec( relativeTo : Object, out : h2d.col.Bounds, forSize : Bool ) {

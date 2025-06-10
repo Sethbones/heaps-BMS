@@ -43,6 +43,16 @@ class App implements h3d.IDrawable {
 	**/
 	public var sevents(default,null) : hxd.SceneEvents;
 
+	/**
+	 * the manager for all countdown based events
+	 * 
+	 * see `hxd.TimerManager`
+	 */
+	public var timer(default,null): hxd.TimerManager;
+
+	/**
+	 * is the engine kaput or not
+	 */
 	var isDisposed : Bool;
 
 	public function new() {
@@ -76,6 +86,7 @@ class App implements h3d.IDrawable {
 	public function setScene( scene : hxd.SceneEvents.InteractiveScene, disposePrevious = true ) {
 		var new2D = Std.downcast(scene, h2d.Scene);
 		var new3D = Std.downcast(scene, h3d.scene.Scene);
+		timer.removeAllTimers();
 		if( new2D != null ) {
 			sevents.removeScene(s2d);
 			sevents.addScene(scene, 0);
@@ -117,22 +128,23 @@ class App implements h3d.IDrawable {
 		if( s3d != null ) s3d.onContextLost();
 	}
 
-	function setScene2D( s2d : h2d.Scene, disposePrevious = true ) {
-		sevents.removeScene(this.s2d);
-		sevents.addScene(s2d,0);
-		if( disposePrevious )
-			this.s2d.dispose();
-		this.s2d = s2d;
-		s2d.mark = mark;
-	}
+	// //what the heck is the point of these 2 functions, setScene already does both and this is private for some reason
+	// function setScene2D( s2d : h2d.Scene, disposePrevious = true ) {
+	// 	sevents.removeScene(this.s2d);
+	// 	sevents.addScene(s2d,0);
+	// 	if( disposePrevious )
+	// 		this.s2d.dispose();
+	// 	this.s2d = s2d;
+	// 	s2d.mark = mark; //oh hi mark
+	// }
 
-	function setScene3D( s3d : h3d.scene.Scene, disposePrevious = true ) {
-		sevents.removeScene(this.s3d);
-		sevents.addScene(s3d);
-		if ( disposePrevious )
-			this.s3d.dispose();
-		this.s3d = s3d;
-	}
+	// function setScene3D( s3d : h3d.scene.Scene, disposePrevious = true ) {
+	// 	sevents.removeScene(this.s3d);
+	// 	sevents.addScene(s3d);
+	// 	if ( disposePrevious )
+	// 		this.s3d.dispose();
+	// 	this.s3d = s3d;
+	// }
 
 	public function render(e:h3d.Engine) {
 		s3d.render(e);
@@ -140,6 +152,16 @@ class App implements h3d.IDrawable {
 		//sui.render(e);
 	}
 
+	/**
+	 * this likely either has something to do with HIDE or with some sort of profiler, what they are i don't know:
+	 * 
+	 * s2d does: mark("s2d"); and mark("vsync");
+	 * 
+	 * while s3d does: mark("sync"); and mark("emit");
+	 * 
+	 * this while also mentioning something by the name of sceneprof, which looks to be some sort of profiler
+	 * @param name 
+	 */
 	function mark(name : String) {
 		s3d.mark(name);
 	}
@@ -153,9 +175,10 @@ class App implements h3d.IDrawable {
 			s2d.checkResize();
 			if( initDone ) onResize();
 		};
+		timer = new hxd.TimerManager();
 		s3d = new h3d.scene.Scene();
 		s2d = new h2d.Scene();
-		s2d.mark = mark;
+		s2d.mark = mark; //pass app.mark to s2d.mark?
 		sevents = new hxd.SceneEvents();
 		sevents.addScene(s2d);
 		sevents.addScene(s3d);
@@ -215,6 +238,7 @@ class App implements h3d.IDrawable {
 		if( s2d != null ) s2d.setElapsedTime(dt);
 		if( s3d != null ) s3d.setElapsedTime(dt);
 		engine.render(this);
+		if( timer != null ) timer.update();
 		//updates the children of the currently active scene. can be removed for manual control, for most situations, leave it as is
 		//if( s2d != null ) s2d.update();
 		//if( s3d != null ) s3d.update();

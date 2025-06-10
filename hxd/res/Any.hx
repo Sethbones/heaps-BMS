@@ -70,6 +70,9 @@ class Any extends Resource {
 		return new hxd.impl.ArrayIterator([for( f in entry ) new Any(loader,f)]);
 	}
 
+	/**
+	 * i have yet to figure out why it takes a path, does it create a temporary folder?
+	 */
 	public static function fromBytes( path : String, bytes : haxe.io.Bytes ) {
 		var fs = new SingleFileSystem(path,bytes);
 		return new Loader(fs).load(path);
