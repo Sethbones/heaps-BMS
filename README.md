@@ -12,7 +12,7 @@ Heaps-BMS natively works on:
 - HTML5 (requires WebGL)
 - Desktop with OpenGL (Win/Linux/OSX) or DirectX (Windows only)
 
-with the following manual implementation
+with the following requiring manual implementation
 - Mobile (iOS, tvOS and Android)
 - Consoles (Nintendo Switch, Sony PS4, XBox One - requires being a registered developer)
 
