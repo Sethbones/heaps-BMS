@@ -1,164 +1,234 @@
 package h2d;
 
 /**
-	the animation system used here is very limited, if you only need to run an animation, without the need for any sort of control, then this will suffice
-	
-	however if you need proper control over things like the speed of each frame, or multiple animations on a single object,
-	then you're going to have to write your own animation system
+    JSON variable explanation:
+
+    "tile_resolution": [Int,Int] default: [null,null] // each animation tile's resolution
+    "default_offset" : [Int,Int] default: [null,null] // the draw offset of the sprite
+    "animations": [
+        {
+            "name": `String`                 default: null                   // an optional identifier for the current animation, makes it easier to find when making changes
+            "resolution_override": [Int,Int] default: null                   // optional override for the current animation's resolution
+            "offset_override": [Int,Int]     default: null                   // optional override for the current sprite's draw offset 
+            "frame_step":[Int,Int]           default: [tile_resolution[0],0] // optional override for how far the next tile is from the current one
+            "frames": [Int,...]              default: [100]                  // how many individual images does the current animation have, and their duration in milliseconds 
+            "loop": `Bool`                   default: false                  // should the animation loop?
+            "next_state": `Int`              default: 0                      // the state to go to after the animation ends if it doesn't loop 
+            "script": [String,...]           default: [null]#requires hscript// the hscript code to execute when the current animation frame is reached, corrosponding to frames
+        }
+    ]
+*/
 
 
-	Displays an animated sequence of bitmap Tiles on the screen.
 
-	Anim does not provide animation sequence management and it's up to user on how to implement it.
-	Another limitation is framerate. Anim runs at a fixed framerate dictated by `Anim.speed`.
-	Switching animations can be done through `Anim.play` method.
+/**
+ * now, heaps has its own animation system... and i don't like it very much, its intentionally very limited and is better suited for iteration.
+ * 
+ * however i needed an animation system that i can just: drop a spritesheet on top of an object and not think about it too hard.
+ * 
+ * with that said:
+ * 
+ * BMS animation system, a flexible animation system that is designed for ease of creation and readability while maintaining flexibility
+ * 
+ * basically a state machine as an animation system, the old animation system is still there for simpler things like projectiles under `h2d.BasicAnim`
+ */
+class Anim extends Drawable{//do not attempt to use this as a base for an object, as it relies on being parented to another object
 
-	Note that animation playback happens regardless of Anim visibility and only can be paused by `Anim.pause` flag. 
-	Anim should be added to an active `h2d.Scene` in order to function.
-**/
-class Anim extends Drawable {
+    /**
+     * the location to add when going to the next frame, is technically a vector but vectors are not a thing in JSON
+     */
+    var currentFrameStep:Array<Int> = null;
 
-	/**
-		The current animation, as a list of tile frames to display.
-		If the frames are empty or if a tile is frames is null, a pink 5x5 bitmap will be displayed instead.
-	**/
-	public var frames(default,null) : Array<Tile>;
+    /**
+     * the current animation frame displayed
+    */
+    var currentFrame:Int = 0;
+    /**
+     * the static version of the current animation frame displayed
+    */
+    var currentNumberofFrames:Int = 0;
+    /**
+     * time between frames
+    */
+    var frameTime = 100; //gets overwritten almost immediately
+    /**
+     * static version of the time between frames
+    */
+    var timeTillAnimationEnd:Float; //= frameTime at start
+    /**
+     * handles animation looping
+    */
+    var animShouldLoop:Bool = false;
+    /**
+     * the current state in use given from the json's "animations" array
+    */
+    var currentState:Int = 0;
+    /**
+     * stores the last used state
+    */
+    var previousState:Int;
+    /**
+     * the animation properties file assigned by the constructor.
+    */
+    var animJSON:Dynamic;
 
-	/**
-		The current frame the animation is currently playing. Always in `[0,frames.length]` range.
-		Use `Std.int(anim.currentFrame)` in order to obtain current frame index.
-		Fractional value represents the progress of current frame and increases according to `Anim.speed` value.
+    /**
+     * the spritesheet to animate
+     */
+    var spritesheet:h2d.Bitmap;
 
-		Setting frame to a negative value will wrap it around from the end of the animation. Setting negative value smaller than `-frames.length` lead to undefined behavior.
-		Setting frame to a value greater than `frames.length` would cause to wrap around.
-	**/
-	public var currentFrame(get,set) : Float;
+    // hscript's nonsense
+    var hparser:hscript.Parser;
+    var hinterp:hscript.Interp;
 
-	/**
-		The speed (in frames per second) at which the animation is playing.
 
-		Settings speed to a negative value is not supported and leads to undefined behavior.
-	**/
-	public var speed : Float;
+    public override function update(){
+        if (previousState != currentState){
+            previousState = currentState;
+            animSwitch();
+        }
 
-	/**
-		Setting pause will suspend the animation, preventing automatic accumulation of `Anim.currentFrame` over time.
-	**/
-	public var pause : Bool = false;
+        var animationTimer = hxd.Timer.dt * 1000;
 
-	/**
-		Disabling loop will stop the animation at the last frame.
-	**/
-	public var loop : Bool = true;
+        //=-ANIMATION LOGIC-=\\
+        if (animJSON.animations[currentState].frames != null){//when its not empty
+            if (timeTillAnimationEnd >= 0){
+                timeTillAnimationEnd -= animationTimer;
+            }
+            else{
+                if (currentFrame == currentNumberofFrames){
+                    if (animShouldLoop){
+                        currentFrame = 0;
+                        timeTillAnimationEnd = (animJSON.animations[currentState].frames[currentFrame]:Int ) ;  //the first time in my life i have ever seen "haxe error:Can't cast hl.types.ArrayDyn to hl.types.ArrayBytes..."
+                        //=-SCRIPT CONTROLS-=\\
+                        #if hscript
+                        if (hparser != null && hinterp != null){
+                            if (animJSON.animations[currentState].script != null){//when its empty
+                                if (animJSON.animations[currentState].script[currentFrame] != null){
+                                    hinterp.execute(hparser.parseString(animJSON.animations[currentState].script[currentFrame]));
+                                }
+                            }
+                        }
+                        #end
+                    }
+                    else{
+                        currentState = animJSON.animations[currentState].next_state;
+                        animSwitch(); //band aid solution for now
+                    }
+                    
+                }
+                else {
+                    currentFrame += 1;
+                    timeTillAnimationEnd = (animJSON.animations[currentState].frames[currentFrame]:Int);
+                    //=-SCRIPT CONTROLS-=\\
+                    #if hscript
+                    if (hparser != null && hinterp != null){
+                        if (animJSON.animations[currentState].script != null){//when its empty
+                            if (animJSON.animations[currentState].script[currentFrame] != null){
+                                hinterp.execute(hparser.parseString(animJSON.animations[currentState].script[currentFrame]));
+                            }
+                        }
+                    }
+                    #end
 
-	/**
-		When enabled, fading will draw two consecutive frames with alpha transition between
-		them instead of directly switching from one to another when it reaches the next frame.
-		This can be used to have smoother animation on some effects.
-	**/
-	public var fading : Bool = false;
+                }
 
-	var curFrame : Float;
+            }
+            spritesheet.tile.setPosition(currentFrame * currentFrameStep[0], (currentFrame * currentFrameStep[1]) + (animJSON.tile_resolution[1] * currentState) );            
+        }
+    }
 
-	/**
-		Create a new animation with the specified frames, speed and parent object.
-		@param frames An optional array of Tiles as an initial `Anim.frames` value.
-		@param speed The Anim playback speed in frames per second.
-		@param parent An optional parent `h2d.Object` instance to which Anim adds itself if set.
-	**/
-	public function new( ?frames : Array<Tile>, speed : Float = 15, ?parent : h2d.Object ) {
-		super(parent);
-		this.frames = frames == null ? [] : frames;
-		this.curFrame = 0;
-		this.speed = speed;
-	}
+    /**
+     * the logic to switch between animations
+     */
+    function animSwitch(){
 
-	inline function get_currentFrame() {
-		return curFrame;
-	}
+        //=-resolution_override-=\\
+        if (animJSON.animations[0].resolution_override == null){//when its empty
+            spritesheet.tile.setSize(animJSON.tile_resolution[0], animJSON.tile_resolution[1]);
+        }
+        else{//when its not empty
+            spritesheet.tile.setSize(animJSON.animations[currentState].resolution_override[0], animJSON.animations[currentState].resolution_override[1]);
+        }
 
-	/**
-		Change the currently playing animation and unset the pause if it was set.
-		@param frames The list of frames to play.
-		@param atFrame Optional starting frame of the new animation.
-	**/
-	public function play( frames : Array<Tile>, atFrame = 0. ) {
-		this.frames = frames == null ? [] : frames;
-		currentFrame = atFrame;
-		pause = false;
-	}
+        //=-offset_override-=\\
+        if (animJSON.animations[0].offset_override == null){//when its empty
+            spritesheet.setPosition(-animJSON.default_offset[0], -animJSON.default_offset[1]);
+        }
+        else{//when its not empty
+            spritesheet.setPosition(-animJSON.animations[currentState].offset_override[0], -animJSON.animations[currentState].offset_override[1]);
+        }
 
-	/**
-		Sent each time the animation reaches past the last frame.
+        //=-frame_step-=\\
+        currentFrameStep = animJSON.animations[currentState].frame_step ?? [animJSON.tile_resolution[0],0];
 
-		If `loop` is enabled, callback is sent every time the animation loops.
-		During the call, `currentFrame` is already wrapped around and represent new frame position so it's safe to modify it.
+        //=-frames-=\\
+        currentNumberofFrames = Std.int(animJSON.animations[currentState].frames.length - 1) ?? 0; //note to self, in JSON 1 is still a float, which could probably be a haxe bug, but i don't if JSON can do "1."
+        currentFrame = 0;
+        frameTime = animJSON.animations[currentState].frames[currentFrame] ?? 100;
+        timeTillAnimationEnd = frameTime;
 
-		If `loop` is disabled, callback is sent only once when the animation reaches `currentFrame == frames.length`.
-		During the call, `currentFrame` is always equals to `frames.length`.
-	**/
-	public dynamic function onAnimEnd() {
-	}
+        //=-loop-=\\
+        animShouldLoop = animJSON.animations[currentState].loop ?? false;
 
-	function set_currentFrame( frame : Float ) {
-		curFrame = frames.length == 0 ? 0 : frame % frames.length;
-		if( curFrame < 0 ) curFrame += frames.length;
-		return curFrame;
-	}
+        //=-script-=\\
+        #if hscript
+        if (hparser != null && hinterp != null){
+            if (animJSON.animations[currentState].script != null){//when its empty
+                if (animJSON.animations[currentState].script[currentFrame] != null){
+                    hinterp.execute(hparser.parseString(animJSON.animations[currentState].script[currentFrame]));
+                }
+            }
+        }
+        #end
 
-	override function getBoundsRec( relativeTo : Object, out : h2d.col.Bounds, forSize : Bool ) {
-		super.getBoundsRec(relativeTo, out, forSize);
-		var tile = getFrame();
-		if( tile != null ) addBounds(relativeTo, out, tile.dx, tile.dy, tile.width, tile.height);
-	}
+    }
 
-	override function sync( ctx : RenderContext ) {
-		super.sync(ctx);
-		var prev = curFrame;
-		if (!pause)
-			curFrame += speed * ctx.elapsedTime;
-		if( curFrame < frames.length )
-			return;
-		if( loop ) {
-			if( frames.length == 0 )
-				curFrame = 0;
-			else
-				curFrame %= frames.length;
-			onAnimEnd();
-		} else if( curFrame >= frames.length ) {
-			curFrame = frames.length;
-			if( curFrame != prev ) onAnimEnd();
-		}
-	}
 
-	/**
-		Returns the Tile at current frame.
-	**/
-	public function getFrame() : Tile {
-		var i = Std.int(curFrame);
-		if( i == frames.length ) i--;
-		return frames[i];
-	}
+    //=-PUBLIC HELPER FUNCTIONS-=\\
+    /**
+     * gets the current state in use
+     */
+    public function getCurrentState():Int {
+        return currentState;
+    }
 
-	override function draw( ctx : RenderContext ) {
-		var t = getFrame();
-		if( fading ) {
-			var i = Std.int(curFrame) + 1;
-			if( i >= frames.length ) {
-				if( !loop ) return;
-				i = 0;
-			}
-			var t2 = frames[i];
-			var old = ctx.globalAlpha;
-			var alpha = curFrame - Std.int(curFrame);
-			ctx.globalAlpha *= 1 - alpha;
-			emitTile(ctx, t);
-			ctx.globalAlpha = old * alpha;
-			emitTile(ctx, t2);
-			ctx.globalAlpha = old;
-		} else {
-			emitTile(ctx,t);
-		}
-	}
+    /**
+     * forcefullly change the state
+     */
+    public function setCurrentState(state:Int) {
+        currentState = state;
+    }
 
+    /**
+     * get the state's name for easier identification
+     */
+    public function getCurrentStateName():String{
+        return ("animation: " + animJSON.animations[currentState].name + " | state number: " + currentState);
+    }
+
+
+    //=-CONSTRUCTOR-=\\
+    /**
+     * to get an idea for how to use, then check the samples 
+     * @param parent the object on which to animate
+     * @param animationJSON the JSON animation config file
+     * @param sheet the spritesheet to animate
+     * @param hscriptparser the barely documented parser for hscript from string to expression taken from the parent object
+     * @param hscriptinterpreter the barely documented interpreter for hscript from expression to actual use taken from the parent object
+     */
+    public override function new(parent:h2d.Object, animationJSON: String, sheet: h2d.Bitmap, ?hscriptparser: hscript.Parser, ?hscriptinterpreter: hscript.Interp){
+        super(parent);
+        animJSON = haxe.Json.parse(animationJSON);
+        spritesheet = sheet;
+        animSwitch();
+        hparser = hscriptparser ?? null;
+        hinterp = hscriptinterpreter ?? null;
+        //side tangent: why does hscript need parser and interpreter on two different classes?, they're both required to be used together anyways.
+        //it's like its a component with components instead of a drop in component with optional addons.
+        //modularity my ass, when the core of a modular library requires the use of multiple parts in order to function:
+        //it stops being modular and starts becoming a nuisance (or ECS).
+        //parser does nothing on its own and requires interpreter to function
+        //interpreter does nothing on its own as it requires an expr that are given from parser
+    }
 }

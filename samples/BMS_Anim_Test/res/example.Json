@@ -1,0 +1,168 @@
+{
+    "tile_resolution": [48,48],
+    "default_offset": [23,30],
+    "animations": [
+        {
+            "name": "idle_down",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [100],
+            "loop": true,
+            "next_state": 0,
+            "script": null
+        },
+        {
+            "name": "idle_up",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [100],
+            "loop": true,
+            "next_state": 1,
+            "script": null
+        },
+        {
+            "name": "idle_left",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [100],
+            "loop": true,
+            "next_state": 2,
+            "script": null
+        },
+        {
+            "name": "idle_right",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [100],
+            "loop": true,
+            "next_state": 3,
+            "script": null
+        },
+        {
+            "name": "move_down",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,50,100,50,200,50,100,50],
+            "loop": true,
+            "next_state": 0,
+            "script": ["dustpoof()",null,null,null,null,null,null,null]
+        },
+        {
+            "name": "move_up",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,50,100,50,200,50,100,50],
+            "loop": true,
+            "next_state": 1,
+            "script": null
+        },
+        {
+            "name": "move_left",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,50,100,50,200,50,100,50],
+            "loop": true,
+            "next_state": 2,
+            "script": null
+        },
+        {
+            "name": "move_right",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,50,100,50,200,50,100,50],
+            "loop": true,
+            "next_state": 3,
+            "script": null
+        },
+        {
+            "name": "slash_down",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [50,50,50,75,100],
+            "loop": false,
+            "next_state": 0,
+            "script": null
+        },
+        {
+            "name": "slash_up",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [50,50,50,75,100],
+            "loop": false,
+            "next_state": 1,
+            "script": null
+        },
+        {
+            "name": "slash_left",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [50,50,50,75,100],
+            "loop": false,
+            "next_state": 2,
+            "script": null
+        },
+        {
+            "name": "slash_right",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [50,50,50,75,100],
+            "loop": false,
+            "next_state": 3,
+            "script": null
+        },
+        {
+            "name": "doge_down",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,100,100,100,75,75,75,150],
+            "loop": false,
+            "next_state": 0,
+            "script": null
+        },
+        {
+            "name": "dodge_up",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,100,100,100,75,75,75,150],
+            "loop": false,
+            "next_state": 1,
+            "script": null
+        },
+        {
+            "name": "dodge_left",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,100,100,100,75,75,75,150],
+            "loop": false,
+            "next_state": 2,
+            "script": null
+        },
+        {
+            "name": "dodge_right",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [200,100,100,100,75,75,75,150],
+            "loop": false,
+            "next_state": 3,
+            "script": null
+        }
+
+    ]
+
+}

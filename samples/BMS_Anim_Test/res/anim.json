@@ -1,0 +1,17 @@
+{
+    "tile_resolution": [32,32],
+    "default_offset": [16,32],
+    "animations": [
+        {
+            "name": "idle",
+            "resolution_override": null,
+            "offset_override": null,
+            "frame_step":null,
+            "frames": [100,75,200,50,150,50],
+            "loop": true,
+            "next_state": 0,
+            "script": null
+        }
+    ]
+
+}
