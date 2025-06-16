@@ -1,4 +1,4 @@
-# Heaps-BMS fork
+# Heaps-BMS
 _High Performance Game Framework_
 
 [![Build Status](https://travis-ci.org/HeapsIO/heaps.svg?branch=master)](https://travis-ci.org/HeapsIO/heaps)
@@ -10,7 +10,7 @@ _High Performance Game Framework_
 
 Heaps-BMS natively works on:
 - HTML5 (requires WebGL)
-- Desktop with OpenGL (Win/Linux/OSX) or DirectX (Windows only)
+- Desktop with OpenGL (Win/Linux/OSX) or DirectX (Windows/Proton only)
 
 with the following requiring manual implementation
 - Mobile (iOS, tvOS and Android)

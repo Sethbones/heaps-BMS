@@ -252,6 +252,45 @@ class Scene extends Layers implements h3d.IDrawable implements hxd.SceneEvents.I
 		shapePoint = new h2d.col.Point();
 		window = hxd.Window.getInstance();
 		posChanged = true;
+		haxe.Timer.delay(init, 0); //the funniest workaround i have ever scene for scene inits, this causes the init to happen on frame 1 instead of frame 0
+	}
+
+	//behold the dumbest combination of two function ever made
+	/**
+	 * updates all children of the 2D object, managed directly by `hxd.App`
+	 * 
+	*/
+	public function mainLoop(){
+		this.update(); //updates the scene's loop
+		//an attempt was made to make it self contained, that didn't work so now there's 2 functions
+		if (children.length > 0){
+			//trace(children);
+			for (o in children){
+				o.update(); //updates the first items in the tree
+				//trace(o.children.length);
+				if (o.children.length > 0){
+					//trace(o.children);
+					updateChildren(o.children);
+				}
+			}
+			
+		}
+			
+
+	}
+	/**
+	 * updates the children of the children and the children of the children and the children of the children and...until it hits a snag and starts over
+	 * 
+	 * i swear if this is somehow a memory leak, i'm going to be extra confused
+	 * 
+	 * @param objchild the children to update
+	 */
+	function updateChildren(objchild:Array<Object>){
+		//trace(objchild);
+		for (o in objchild){
+			o.update();
+			if (o.children.length > 0){updateChildren(o.children);} //call it again with the children of the children and then call it again with the children of the childern...
+		}
 	}
 
 	inline function get_defaultSmooth() return ctx.defaultSmooth;

@@ -5,24 +5,21 @@ class Main extends hxd.App {
     public var animcontrol:h2d.Anim;
 
     override function init() {
-        //create the player
-        var player = new h2d.Object();
-        s2d.add(player);
-        //add the animation system to the player
-        animcontrol = new h2d.Anim(player, hxd.Res.anim.entry.getText(), new h2d.Bitmap(hxd.Res.animsheet.toTile(), player));
-        //move the player to the middle of the screen
-        player.x = s2d.width/2;
-        player.y = s2d.height/1.5;
-        //scale the player, not the animation system
-        player.scale(10);
+        //create an object to act as the animation system's container
+        var obj = new h2d.Object();
+        s2d.add(obj);
+        //add the animation system to the object
+        animcontrol = new h2d.Anim(obj, hxd.Res.anim.entry.getText(), new h2d.Bitmap(hxd.Res.animsheet.toTile(), obj));
+        //move the object to the middle of the screen
+        obj.x = s2d.width/2;
+        obj.y = s2d.height/1.5;
+        //scale the object, not the animation system
+        obj.scale(10);
     }
 
 
     // on each frame
-    override function update(dt:Float) {
-        //will not be needed soon as updates to objects will be done by the scene, but its here for now because i'm still porting stuff
-        animcontrol?.update(); //if its not null, update.
-    }
+    override function update(dt:Float) {}
 
     static function main() {
         hxd.Res.initEmbed();

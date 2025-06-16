@@ -216,6 +216,8 @@ class Object {
 			parent.addChild(this);
 	}
 
+	//behold! an undocumented hellscape, welp at least its easy to understand
+	//=-GETTERS-=\\
 	inline function get_visible() return flags.has(FVisible);
 	inline function get_allocated() return flags.has(FAllocated);
 	inline function get_posChanged() return flags.has(FPosChanged);
@@ -232,6 +234,8 @@ class Object {
 	inline function get_fixedPosition() return flags.has(FFixedPosition);
 	inline function get_alwaysSync() return flags.has(FAlwaysSync);
 	inline function get_drawn() return flags.has(FDrawn);
+
+	//=-SETTERS-=\\
 	inline function set_posChanged(b) {
 		var c = flags.set(FPosChanged, b || follow != null);
 		if ( c && flags.has(FInSync) )
@@ -528,6 +532,7 @@ class Object {
 			else
 				o.onParentChanged();
 		}
+		o.init();
 	}
 
 	/**
@@ -683,8 +688,19 @@ class Object {
 		return null;
 	}
 
-	function draw( ctx : RenderContext ) {
-	}
+	//oh neat its useless
+	function draw( ctx : RenderContext ) {}
+
+	/**
+	 * the object's independant initialization, done when its added to a scene with `new`/`addChildAt`/`addChild`
+	*/
+	function init(){}
+
+	/**
+	  * the object's independant update loop, updated by the current scene
+	*/
+	function update(){}
+
 
 	function set_follow(v) {
 		posChanged = true;

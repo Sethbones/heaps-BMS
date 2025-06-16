@@ -41,7 +41,7 @@ class Joint extends Object {
 		var p : h3d.scene.Object = skin;
 		while( p != null ) {
 			if( p.posChanged) {
-				update();
+				posUpdate();
 				break;
 			}
 			p = p.parent;
@@ -57,7 +57,7 @@ class Joint extends Object {
 		Force the update of the position of this joint
 	**/
 	@:access(h3d.scene.Skin)
-	public function update() {
+	public function posUpdate() {//name conflicts, used to be called update
 		skin.getAbsPos();
 		skin.syncJoints();
 		lastFrame = -1;

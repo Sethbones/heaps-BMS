@@ -439,6 +439,7 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 		#if domkit
 		if( s.dom != null ) s.dom.onParentChanged();
 		#end
+		s.init();
 	}
 
 	/**
@@ -595,14 +596,16 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 	@:dox(show)
 	function draw( ctx : RenderContext ) {
 	}
+	
+	/**
+	 * the object's independant initialization, done when its added with: `new`/`s2d.add`/`addChildAt`/`addChild`
+	 */
+	function init(){}
 
 	/**
-	 * the object's independant update loop, similar to every other game engine
-	 * //not implemented yet
+	 * the object's independant update loop, updated by the current scene
 	*/
-	public function update(){
-
-	}
+	function update(){}
 
 	/**
 		Performs a sync of data for rendering (such as absolute position recalculation).

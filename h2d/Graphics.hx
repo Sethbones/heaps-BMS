@@ -209,7 +209,7 @@ class Graphics extends Drawable {
 		Create a new Graphics instance.
 		@param parent An optional parent `h2d.Object` instance to which Graphics adds itself if set.
 	**/
-	public function new(?parent) {
+	public function new(?parent:h2d.Object) {
 		super(parent);
 		content = new GraphicsContent();
 		tile = h2d.Tile.fromColor(0xFFFFFF);

@@ -20,7 +20,7 @@ class App implements h3d.IDrawable {
 	/**
 		The Default 3D scene.
 	**/
-	public var s3d(default,null) : h3d.scene.Scene; //this needs to be figured out, this is not clean, why is scene in its own folder while not like that in h2d?
+	public var s3d(default,null) : h3d.scene.Scene; //this needs to be figured out, this is not clean, why is scene in its own folder while its not like that in h2d?
 
 	/**
 		The Default 2D scene.
@@ -29,11 +29,15 @@ class App implements h3d.IDrawable {
 
 	/**
 		The default HUD and GUI scene.
+
+		meant as a draw layer on top of s2d
 	**/
 	// public var sui(default,null) : h2d.Scene;
 
 	/**
 		The final render scene, draws all other scenes on top of it
+
+		meant as a containter for screen shaders.
 	*/
 	//public var rnd(default,null) : h2d.Scene;
 
@@ -239,9 +243,9 @@ class App implements h3d.IDrawable {
 		if( s3d != null ) s3d.setElapsedTime(dt);
 		engine.render(this);
 		if( timer != null ) timer.update();
-		//updates the children of the currently active scene. can be removed for manual control, for most situations, leave it as is
-		//if( s2d != null ) s2d.update();
-		//if( s3d != null ) s3d.update();
+		//updates the children of the currently active scene.
+		if( s2d != null ) s2d.mainLoop();
+		if( s3d != null ) s3d.mainLoop();
 		//if( sui != null ) sui.update();
 	}
 

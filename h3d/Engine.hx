@@ -37,7 +37,7 @@ class Engine {
 	public var hardware(default, null) : Bool;
 	public var width(default, null) : Int;
 	public var height(default, null) : Int;
-	public var debug(default, set) : Bool;
+	public var debug(default, set) : Bool; //doesn't seem to do anything, doesn't really make sense for it to be here, would make sense as a compiler flag
 
 	public var drawTriangles(default, null) : Int;
 	public var drawCalls(default, null) : Int;

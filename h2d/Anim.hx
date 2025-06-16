@@ -82,7 +82,7 @@ class Anim extends Drawable{//do not attempt to use this as a base for an object
     var hinterp:hscript.Interp;
 
 
-    public override function update(){
+    override function update(){
         if (previousState != currentState){
             previousState = currentState;
             animSwitch();

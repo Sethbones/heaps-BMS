@@ -101,6 +101,9 @@ enum RenderFlag {
 	CameraHandness;
 }
 
+/**
+ * this does a lot of things, of which non of it is documented
+ */
 class Driver {
 
 	static var SHADER_CACHE : h3d.impl.ShaderCache;
@@ -223,6 +226,7 @@ class Driver {
 	public function end() {
 	}
 
+	//rabbit hole nonsense
 	public function setDebug( b : Bool ) {
 	}
 
