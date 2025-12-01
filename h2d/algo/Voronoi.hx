@@ -1,3 +1,7 @@
+//this technically doesn't fit collision but honestly where else would it be?
+//also can't you technically just do vornoi as a shader?
+//also considering the age of the file, this is likely one of the oldest parts of the engine, its from 2013 and hasn't really been touched since outside of optimization here and there
+
 /*
 	Port by Nicolas Cannasse
 	Copyright (C) 2010-2013 Raymond Hill

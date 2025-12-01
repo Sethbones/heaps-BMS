@@ -95,11 +95,15 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 	**/
 	public var blendMode : BlendMode = Alpha;
 
+	//domkit specific for some reason
 	#if domkit
 	public var dom : domkit.Properties<h2d.Object>;
 	@:dox(hide) @:noCompletion public inline function getChildren() return children;
 	#end
 
+	//what's a mat, oh matrix, that explains a lot now
+	//so these are the values you don't see that are more important than most of the values here
+	//was also a good opportunity to learn matrices
 	var matA : Float;
 	var matB : Float;
 	var matC : Float;
@@ -592,6 +596,8 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 		////
 		so, somehow this is called automagically, and i still don't know how
 		also the absolute comedy that is bitmaps being updated automatically, but a global update function? nooooo.
+
+		the global update function is called sync, nice.
 	**/
 	@:dox(show)
 	function draw( ctx : RenderContext ) {
@@ -606,6 +612,8 @@ class Object #if (domkit && !domkit_heaps) implements domkit.Model<h2d.Object> #
 	 * the object's independant update loop, updated by the current scene
 	*/
 	function update(){}
+
+	function fixedUpdate(){}
 
 	/**
 		Performs a sync of data for rendering (such as absolute position recalculation).

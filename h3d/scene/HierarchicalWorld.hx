@@ -155,9 +155,9 @@ class HierarchicalWorld extends Object {
 	}
 
 	function calcDist(ctx : h3d.scene.RenderContext) {
-		var camPos = new h2d.col.Point(ctx.camera.pos.x, ctx.camera.pos.y);
+		var camPos = new h2d.col.old.Point(ctx.camera.pos.x, ctx.camera.pos.y);
 		var chunkPos = getAbsPos().getPosition();
-		return camPos.distance(new h2d.col.Point(chunkPos.x, chunkPos.y));
+		return camPos.distance(new h2d.col.old.Point(chunkPos.x, chunkPos.y));
 	}
 
 	function isClose(ctx : h3d.scene.RenderContext) {
@@ -205,7 +205,7 @@ class HierarchicalWorld extends Object {
 		if ( depth < 0 )
 			depth = data.maxDepth;
 		var chunkSize = root.data.size >> depth;
-		return new h2d.col.Point((Math.floor(x / chunkSize) + 0.5) * chunkSize,
+		return new h2d.col.old.Point((Math.floor(x / chunkSize) + 0.5) * chunkSize,
 			(Math.floor(y / chunkSize) + 0.5) * chunkSize);
 	}
 

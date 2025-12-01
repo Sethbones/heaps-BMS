@@ -1,0 +1,10 @@
+-cp src
+-lib heaps
+-lib hlsdl
+-lib format
+-lib hscript
+#-js newanim.js
+-hl newanim.hl
+#-hl bin/KnightISeek.c
+-main Main
+-D debug

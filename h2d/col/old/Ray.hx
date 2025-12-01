@@ -1,6 +1,7 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
-
+//what's the difference between a line and a raycast?
+//because as far as i understand it, its the same just written differently
 /**
 	A raycast from the given position in a specified direction.
 **/

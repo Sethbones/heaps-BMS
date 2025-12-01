@@ -1,4 +1,4 @@
-package h2d.col;
+package h2d.col.old;
 
 /**
 	A `Collider` wrapper around `Polygons` to enable using those for hit-testing testing.

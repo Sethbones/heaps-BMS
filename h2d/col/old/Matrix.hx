@@ -1,4 +1,4 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
 
 /**
@@ -209,7 +209,7 @@ class Matrix {
 		@param p Optional Point instance. If provided, sets values of given Point and returns it. Otherwise returns new Point instance.
 	**/
 	public inline function getScale() {
-		var p = new h2d.col.Point();
+		var p = new h2d.col.old.Point();
 		p.x = Math.sqrt(a * a + b * b);
 		p.y = Math.sqrt(c * c + d * d);
 		if( getDeterminant() < 0 ) {
@@ -316,8 +316,8 @@ class Matrix {
 		Returns a Point with `x` and `y` of the Matrix.
 		@param p Optional Point instance to use. Otherwise returns new instance.
 	**/
-	public inline function getPosition( ?p : h2d.col.Point ) {
-		if( p == null ) p = new h2d.col.Point();
+	public inline function getPosition( ?p : h2d.col.old.Point ) {
+		if( p == null ) p = new h2d.col.old.Point();
 		p.set(x,y);
 		return p;
 	}

@@ -378,7 +378,7 @@ class Texture {
 		Downloads the current texture data from the GPU.
 		Beware, this is a very slow operation that shouldn't be done during rendering.
 	**/
-	public function capturePixels( face = 0, mipLevel = 0, ?region:h2d.col.IBounds ) : hxd.Pixels {
+	public function capturePixels( face = 0, mipLevel = 0, ?region:h2d.col.old.IBounds ) : hxd.Pixels {
 		var old = lastFrame;
 		preventAutoDispose();
 		var pix = mem.driver.capturePixels(this, face, mipLevel, region);

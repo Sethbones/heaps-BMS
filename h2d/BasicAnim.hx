@@ -88,6 +88,13 @@ class BasicAnim extends Drawable {
 		pause = false;
 	}
 
+	//a dynamic function?
+	//okay so dynamic are functions that are alterable mid runtime
+	//so this function can be called and traced and it wil print whatever its set to, neat
+	//i get it... i don't get it.
+	//okay so, it does nothing but i can override the call as like anim.onAnimEnd = function(){},
+	//so that way when the callback is called, it can be overriden for whatever the usecase is
+	//this is peak haxe usage
 	/**
 		Sent each time the animation reaches past the last frame.
 
@@ -112,6 +119,7 @@ class BasicAnim extends Drawable {
 		if( tile != null ) addBounds(relativeTo, out, tile.dx, tile.dy, tile.width, tile.height);
 	}
 
+	//the pseudo update logic
 	override function sync( ctx : RenderContext ) {
 		super.sync(ctx);
 		var prev = curFrame;
@@ -140,6 +148,13 @@ class BasicAnim extends Drawable {
 		return frames[i];
 	}
 
+	//i don't even know what half of this does
+	//so from my understanding you need a bitmap to draw something to the screen, but this doesn't do that?
+	//okay so not really, emitTile is the drawing, its just super hyper optimized
+	//it is absolute insanity how hyper optimized the engine is in all the areas that don't matter
+	//its like, you can use the draw function and pass to a complex web of machinery, or you can a h2d.Bitmap, do you see the problem?
+	//that and all examples on the heaps docs use h2d.Bitmap
+	//so its a like a very old deprecated function but still useful for the 1% of 1% of users
 	override function draw( ctx : RenderContext ) {
 		var t = getFrame();
 		if( fading ) {
@@ -152,12 +167,12 @@ class BasicAnim extends Drawable {
 			var old = ctx.globalAlpha;
 			var alpha = curFrame - Std.int(curFrame);
 			ctx.globalAlpha *= 1 - alpha;
-			emitTile(ctx, t);
+			emitTile(ctx, t); //draw the one fading from
 			ctx.globalAlpha = old * alpha;
-			emitTile(ctx, t2);
+			emitTile(ctx, t2); //draw the one faded into 
 			ctx.globalAlpha = old;
 		} else {
-			emitTile(ctx,t);
+			emitTile(ctx,t); //just draw it
 		}
 	}
 

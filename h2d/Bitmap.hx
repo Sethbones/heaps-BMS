@@ -32,10 +32,12 @@ class Bitmap extends Drawable {
 
 	//there doesn't seem to be a way to directly load an image from the source code directory, so base64 is used for now, at least until a better solution is found
 	/**
-	 * a placeholder image that is loaded when a null tile is given, that should be a very occurance but it could still be an occurance
+	 * a placeholder image that is loaded when a null tile is given, that should be a very rare occurance but it could still be an occurance
 	 */
 	var placeholder(default, null):String = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAOZJREFUOI2lkzsOwjAMhr9UdOC9tIfhBhyJI7BwCjbExsLIxgl6CcqCKqgojzCYQGkcGPBiJfL/+3PkGMDih1Hu0GoNYKvV85BIjkeekQW4bOVwXkruzaD1Yb+X7ArjkS70CGwBl43OXAXub1nCcL0nCswKwDWDKP1WUZuxSXHNPgvvud8dMCpBUwxhEmdgTD8sbpq47nUDwdyFxe+atkpgbfEdVehEfBgnuN1Q30AzceJmvPbgvFBw87DY5t3fexCl4c4uWuB3rzYiGsxLoOQ09UlMenwb6MLXiHQm8mCnaekb/fudH9p/YHVXjw4OAAAAAElFTkSuQmCC";
-
+	//and for those who might be suggesting hxd.Res, hxd.Res is for a project's directory not the engine's directory 
+	//i thought about doing sys.io shenanigans but i can't because that's not how that works
+	//it'll probably be deleted in a future update
 
 	/**
 		Create a Bitmap with specified tile and parent object.

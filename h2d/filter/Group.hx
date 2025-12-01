@@ -72,7 +72,7 @@ class Group extends Filter {
 		}
 	}
 
-	override function getBounds(s:Object, bounds:h2d.col.Bounds, scale:h2d.col.Point) {
+	override function getBounds(s:Object, bounds:h2d.col.Bounds, scale:h2d.col.old.Point) {
 		for( f in filters )
 			if( f.enable && !f.autoBounds )
 				f.getBounds(s, bounds, scale);

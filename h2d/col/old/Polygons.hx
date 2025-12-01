@@ -1,4 +1,4 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
 
 /**
@@ -24,6 +24,7 @@ abstract Polygons(Array<Polygon>) from Array<Polygon> to Array<Polygon> {
 		@param polygons An optional list of polygons to use.
 	**/
 	public inline function new( ?polygons ) {
+		//okay who tried to summon a demon?
 		this = polygons == null ? [] : polygons;
 	}
 

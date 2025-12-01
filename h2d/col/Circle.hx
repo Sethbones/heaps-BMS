@@ -7,38 +7,39 @@ import hxd.Math;
 class Circle extends Collider {
 
 	/**
-		Horizontal position of the Circle center.
-	**/
-	public var x : Float;
-	/**
-		Vertical position of the Circle center.
-	**/
-	public var y : Float;
-	/**
 		Radius of the circle.
 	**/
 	public var ray : Float;
 
 	/**
 		Create new Circle collider.
-		@param x X position of the Circle center.
-		@param y Y position of the Circle center.
+		@param x X position of the Circle center relative to the given parent.
+		@param y Y position of the Circle center relative to the given parent.
 		@param ray Radius of the circle.
 	**/
-	public inline function new( x : Float, y : Float, ray : Float ) {
+	public override function new(?parent:h2d.Object, x : Float, y : Float, ray : Float ) {
+		this.ray = ray;
+		super(parent);
 		this.x = x;
 		this.y = y;
-		this.ray = ray;
 	}
 
+	//this was probably abandoned at some point, as all functions here that call a distanceSq function just call the hxd.Math one, so it begs the question, what in the fucking
 	/**
 		Returns a squared distance between the Circle center and the given Point `p`.
 	**/
 	public inline function distanceSq( p : Point ) : Float {
-		var dx = p.x - x;
-		var dy = p.y - y;
-		var d = dx * dx + dy * dy - ray * ray;
-		return d < 0 ? 0 : d;
+		var dx = p.x - x; //point's x - circle's x
+		var dy = p.y - y; //points.y - circle's y
+		//the problem with this thing is that, if a circle's x and y are at 0 it just returns 0, and containspoint true
+		//this is a cool and functional engine
+		var d = dx * dx + dy * dy - ray * ray; //black magic operator, this seems to be doing distance calculation but its like half fucked
+		//like its a^2 + b^2 = c^2
+		//there's no c here because you're calculating distance
+		//so what's the point of ray being here?, its a static value?
+		//the final outcome of calculating the square is that its always off by ray * ray
+		//and thus comes this part below, because it can result in minused values which incorrectly get reported as 0,
+		return d < 0 ? 0 : d; //if (d < 0) return 0 else return d;
 	}
 
 	/**
@@ -54,6 +55,7 @@ class Circle extends Collider {
 		Tests if this Circle collides with the given Circle `c`.
 	**/
 	public inline function collideCircle( c : Circle ) : Bool {
+		//this could probably be simplified
 		var dx = x - c.x;
 		var dy = y - c.y;
 		return dx * dx + dy * dy < (ray + c.ray) * (ray + c.ray);
@@ -63,6 +65,7 @@ class Circle extends Collider {
 		Test if this Circle collides with the given Bounds `b`.
 	**/
 	public inline function collideBounds( b : Bounds ) : Bool {
+		//damn this is a cool way to go about this, respect
 		if( x < b.xMin - ray ) return false;
 		if( x > b.xMax + ray ) return false;
 		if( y < b.yMin - ray ) return false;
@@ -101,15 +104,49 @@ class Circle extends Collider {
 	}
 
 	@:dox(hide)
-	public function toString() {
+	public override function toString() {//uh huh, yes, cause this is useful
 		return '{${Math.fmt(x)},${Math.fmt(y)},${Math.fmt(ray)}}';
 	}
 
+	//chances are, this is what i need
 	/**
 		Tests if Point `p` is inside this Circle.
 	**/
-	public function contains( p : Point ) : Bool {
-		return distanceSq(p) == 0;
+	public function containsPoint( p : Point ) : Bool {
+		return hxd.Math.distance(p.absX - this.absX, p.absY - this.absY) <= ray;
 	}
+
+	override function collision(target:Collider) : Bool{
+        switch Type.getClass(target){
+            case Point:
+                var point = cast(target,Point);
+                return Common.circlePoint(point.toVector2(), this.toVector3());
+            case Circle:
+                //i'm gonna have to do casting for these ones
+                var circle = cast(target,Circle);
+                return Common.circleCircle(this.toVector3(), circle.toVector3());
+            case Square:
+                var square = cast(target,Square);
+                return Common.circleSquare(square.toVector4(), this.toVector3());
+            case Line:
+                var line = cast(target, Line);
+                return Common.lineCircle(line.p1.toVector2(),line.p2.toVector2(), this.toVector3());
+            case Polygon:
+                var polygon = cast(target, Polygon);
+                return polygon.polyCircle(this);
+        }
+        return false;
+    }
+
+	public override function collisionDraw(){
+		super.collisionDraw();
+        debugDraw.beginFill(0xff6cc2e4, 0.5);
+        debugDraw.drawCircle(0,0,ray,32);
+    };
+
+	public function toVector3(){
+		return new h3d.Vector(this.absX,this.absY,this.ray);
+	}
+
 
 }

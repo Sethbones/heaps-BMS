@@ -162,7 +162,7 @@ class Dropdown extends Flow {
 			close();
 		}
 		dropdownList.interactive.onMove = function(e : hxd.Event) {
-			var clickPos = dropdownList.localToGlobal(new h2d.col.Point(e.relX, e.relY));
+			var clickPos = dropdownList.localToGlobal(new h2d.Vector2(e.relX, e.relY));
 			var items = getItems();
 			for (i in 0...items.length) {
 				var item = items[i];

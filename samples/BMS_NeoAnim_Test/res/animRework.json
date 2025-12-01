@@ -1,0 +1,77 @@
+{
+    "defaults":{"spriteAtlas":"animsheet.png"},
+    "animations": [
+        {
+            "name": "idle",
+            "duration": 625,
+            "nextAnim": -1,
+            "layers":[
+                {
+                    "type": "image",
+                    "parent": null,
+                    "name": "Image Layer",
+                    "keys": [0,100,175,375,525,575],
+                    "actions": [
+                        {"offsetX":0, "offsetY":0, "width":32, "height":32, "x":0, "y":0, "continuous": false},
+                        {"offsetX":32, "offsetY":0, "width":32, "height":32, "x":0, "y":0, "continuous": false},
+                        {"offsetX":64, "offsetY":0, "width":32, "height":32, "x":0, "y":0, "continuous": false},
+                        {"offsetX":96, "offsetY":0, "width":32, "height":32, "x":0, "y":0, "continuous": false},
+                        {"offsetX":128, "offsetY":0, "width":32, "height":32, "x":0, "y":0, "continuous": false},
+                        {"offsetX":160, "offsetY":0, "width":32, "height":32, "x":0, "y":0, "continuous": false}
+                    ]
+                },
+                {
+                    "type": "collision",
+                    "parent": null,
+                    "name": "Collision Layer",
+                    "keys": [0,100,175,375,525,575],
+                    "active": true,
+                    "actions": [
+                        {"type":"square", "w":24, "h":24, "x":5, "y":8},
+                        {"type":"square", "w":22, "h":24, "x":6, "y":8},
+                        {"type":"square", "w":21, "h":25, "x":6, "y":7},
+                        {"type":"square", "w":23, "h":25, "x":5, "y":7},
+                        {"type":"square", "w":25, "h":23, "x":4, "y":9},
+                        {"type":"square", "w":24, "h":23, "x":5, "y":9}
+                    ]
+                }
+
+            ]
+
+        },
+        {
+            "name": "run",
+            "duration": 600,
+            "nextAnim": -1,
+            "layers":[
+                {
+                    "type": "image",
+                    "parent": null,
+                    "name": "Image Layer",
+                    "keys": [0,100,200,300,400,500],
+                    "actions": [
+                        {"offsetX":0, "offsetY":32, "width":32, "height":32, "x":0, "y":0},
+                        {"offsetX":32, "offsetY":32, "width":32, "height":32, "x":0, "y":0},
+                        {"offsetX":64, "offsetY":32, "width":32, "height":32, "x":0, "y":0},
+                        {"offsetX":96, "offsetY":32, "width":32, "height":32, "x":0, "y":0},
+                        {"offsetX":128, "offsetY":32, "width":32, "height":32, "x":0, "y":0},
+                        {"offsetX":160, "offsetY":32, "width":32, "height":32, "x":0, "y":0}
+                    ]
+                },
+                {
+                    "type": "signal",
+                    "parent": null,
+                    "name": "Signal Layer",
+                    "keys": [0],
+                    "actions": [
+                        {"useParent": false, "func": "play", "args":[1,false,false, 0]}
+                    ]
+                }
+
+            ]
+
+        }
+    ]
+
+
+}

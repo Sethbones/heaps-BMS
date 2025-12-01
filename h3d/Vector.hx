@@ -1,8 +1,8 @@
 package h3d;
 using hxd.Math;
-
+//to be renamed to Vector3 soon for parity sake
 /**
-	A 4 floats vector. Everytime a Vector is returned, it means a copy is created.
+	A 3 floats vector. Everytime a Vector is returned, it means a copy is created.
 **/
 class VectorImpl #if apicheck implements h2d.impl.PointApi<Vector,Matrix> #end {
 

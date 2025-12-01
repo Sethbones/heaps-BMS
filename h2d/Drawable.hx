@@ -205,51 +205,28 @@ class Drawable extends Object {
 		var pos = ctx.bufPos;
 		buf.grow(pos + 4 * 8);
 
-		inline function emit(v:Float) buf[pos++] = v;
+		inline function emit(v:Float) buf[pos++] = v; //a ++ in a local function, damn that's clever
 
-		emit(ax);
-		emit(ay);
-		emit(tile.u);
-		emit(tile.v);
-		emit(color.r);
-		emit(color.g);
-		emit(color.b);
-		emit(alpha);
+		emit(ax); emit(ay);
+		emit(tile.u); emit(tile.v);
+		emit(color.r); emit(color.g); emit(color.b); emit(alpha);
 
 
-		var tw = tile.width;
-		var th = tile.height;
-		var dx1 = tw * matA;
-		var dy1 = tw * matB;
-		var dx2 = th * matC;
-		var dy2 = th * matD;
+		var tw = tile.width; var th = tile.height;
+		var dx1 = tw * matA; var dy1 = tw * matB;
+		var dx2 = th * matC; var dy2 = th * matD;
 
-		emit(ax + dx1);
-		emit(ay + dy1);
-		emit(tile.u2);
-		emit(tile.v);
-		emit(color.r);
-		emit(color.g);
-		emit(color.b);
-		emit(alpha);
+		emit(ax + dx1); emit(ay + dy1);
+		emit(tile.u2); emit(tile.v);
+		emit(color.r); emit(color.g); emit(color.b); emit(alpha);
 
-		emit(ax + dx2);
-		emit(ay + dy2);
-		emit(tile.u);
-		emit(tile.v2);
-		emit(color.r);
-		emit(color.g);
-		emit(color.b);
-		emit(alpha);
+		emit(ax + dx2); emit(ay + dy2);
+		emit(tile.u); emit(tile.v2);
+		emit(color.r); emit(color.g); emit(color.b); emit(alpha);
 
-		emit(ax + dx1 + dx2);
-		emit(ay + dy1 + dy2);
-		emit(tile.u2);
-		emit(tile.v2);
-		emit(color.r);
-		emit(color.g);
-		emit(color.b);
-		emit(alpha);
+		emit(ax + dx1 + dx2); emit(ay + dy1 + dy2);
+		emit(tile.u2); emit(tile.v2);
+		emit(color.r); emit(color.g); emit(color.b); emit(alpha);
 
 		ctx.bufPos = pos;
 	}

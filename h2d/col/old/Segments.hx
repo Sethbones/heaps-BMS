@@ -1,6 +1,9 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
 
+
+//file is very unfinished
+//in this case, while polygon is an enclosed shape, this one is...also an eclosed shape?
 /**
 	An abstract over the list of `Segment`s. Alternative representation of a polygon.
 
@@ -11,6 +14,7 @@ import hxd.Math;
 **/
 abstract Segments(Array<Segment>) from Array<Segment> to Array<Segment> {
 
+	//what is this weird ass optimization
 	/**
 		The underlying Array of segments.
 	**/
@@ -49,7 +53,7 @@ abstract Segments(Array<Segment>) from Array<Segment> to Array<Segment> {
 		Converts this Segments to a Polygon.
 	**/
 	public function toPolygon() : Polygon {
-		return [for( s in segments ) new h2d.col.Point(s.x, s.y)];
+		return [for( s in segments ) new h2d.col.old.Point(s.x, s.y)];
 	}
 
 	/**

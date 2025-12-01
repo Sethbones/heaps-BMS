@@ -1,5 +1,5 @@
 package h2d.col;
-
+//UNFINISHED
 /**
 	An `hxd.Pixels`-based collider. Checks for pixel color value under point to be above the cutoff value.
 
@@ -44,7 +44,7 @@ class PixelsCollider extends Collider {
 
 	/**
 		If true, will collide if any channel is above cutoff. Otherwise will collide only if all channels above their cutoff values.
-		@default true
+		@default true bish what?
 	**/
 	public var collideOnAny : Bool;
 

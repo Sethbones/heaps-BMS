@@ -1,6 +1,8 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
 
+//can someone explain to me the difference between segments and polygons
+//because i don't think there's a difference
 /**
 	A 2D line segment.
 	@see `h2d.Segments`
@@ -125,7 +127,7 @@ class Segment {
 		@param pt Optional Point instance to which intersection point is written. If not provided, returns new Point instance.
 		@returns A `Point` with intersection position or `null` if Segment and Ray do not intersect.
 	**/
-	public inline function lineIntersection( r : h2d.col.Ray, ?pt : Point ) {
+	public inline function lineIntersection( r : h2d.col.old.Ray, ?pt : Point ) {
 		if( r.side(new Point(x, y)) * r.side(new Point(x + dx, y + dy)) > 0 )
 			return null;
 

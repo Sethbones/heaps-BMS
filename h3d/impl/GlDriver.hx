@@ -1652,7 +1652,7 @@ class GlDriver extends Driver {
 		}
 	}
 
-	override function capturePixels(tex:h3d.mat.Texture, layer:Int, mipLevel:Int, ?region:h2d.col.IBounds) {
+	override function capturePixels(tex:h3d.mat.Texture, layer:Int, mipLevel:Int, ?region:h2d.col.old.IBounds) {
 
 		var pixels : hxd.Pixels;
 		var x : Int, y : Int, w : Int, h : Int;

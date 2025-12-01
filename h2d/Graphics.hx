@@ -153,6 +153,9 @@ private class GraphicsContent extends h3d.prim.Primitive {
 }
 
 /**
+ * for some reason this is called "graphics", and it doesn't draw "graphics" it draws primitive shapes.
+ * 
+ * 
 	A simple interface to draw arbitrary 2D geometry.
 
 	Usage notes:
@@ -229,6 +232,7 @@ class Graphics extends Drawable {
 		tmpPoints = [];
 		pindex = 0;
 		lineSize = 0;
+		//its weird that some things use hxd.Math and others use std.Math
 		xMin = Math.POSITIVE_INFINITY;
 		yMin = Math.POSITIVE_INFINITY;
 		yMax = Math.NEGATIVE_INFINITY;
@@ -424,6 +428,9 @@ class Graphics extends Drawable {
 			pts.push(last);
 	}
 
+	//you mean the toilet?, or are we talking graphics?
+	//so from the looks of things this does infill to a bunch of tmpPoints, which makes sense, what doesn't is that its private and not public
+	//potentially it can cause confusion considering the term, but also its required for drawing polygons
 	function flush() {
 		if( tmpPoints.length == 0 )
 			return;
@@ -578,7 +585,8 @@ class Graphics extends Drawable {
 		lineTo(x + w, y + h);
 		lineTo(x, y + h);
 		lineTo(x, y);
-		var e = 0.01; // see #776
+		//i have no idea the why and how, mainly because its the only one to do this
+		var e = 0.01; // see #776 //the fire emblem game?
 		tmpPoints[0].x += e;
 		tmpPoints[0].y += e;
 		tmpPoints[1].y += e;
@@ -589,6 +597,7 @@ class Graphics extends Drawable {
 	}
 
 	/**
+		a rounded rectangle is not a capsule, but this draws a capsule
 		Draws a rounded rectangle with given parameters.
 		@param x The rectangle top-left corner X position.
 		@param y The rectangle top-left corner Y position.
@@ -649,6 +658,8 @@ class Graphics extends Drawable {
 	}
 
 	/**
+		what's the point of drawing an elipse again?, it doesn't have a matching collision shape, and so is just left unused
+
 		Draws an ellipse centered at given position.
 		@param cx X center position of the ellipse.
 		@param cy Y center position of the ellipse.

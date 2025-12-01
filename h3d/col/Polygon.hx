@@ -358,7 +358,7 @@ class Polygon extends Collider {
 	}
 	#end
 
-	public static function fromPolygon2D( p : h2d.col.Polygon, z = 0., oriented = true ) {
+	public static function fromPolygon2D( p : h2d.col.old.Polygon, z = 0., oriented = true ) {
 		var pout = new Polygon();
 		if( p.isConvex() ) {
 			var p0 = p[0];

@@ -1,7 +1,21 @@
-package h2d.col;
+package h2d.col.old;
+
+//this probably exists for the same reason rectangles don't exist
+//just use polygons
+//except a rounded rectangle is not really something that can be easily done with polygon
+
+//please note that rounded rectangles are not the most performance healthy thing ever, please only use them for UI
 
 /**
-	A Collider representing the rectangle with the rounded edges, forming a 2D capsule.
+ * a rectangle with rounded edge and a capsule are too completely different things
+ * 
+ * a capsule is neither a rectangle nor is it a circle, really its both
+ * 
+ * so a more apropriate name for this would just be Capsule
+ * 
+ * an actual rounded rectangle is the text boxes you see on every website where they're rounded in the corners 
+ * 
+ * A Collider representing the rectangle with the rounded edges, forming a 2D capsule.
 **/
 class RoundRect extends Collider {
 	/**
@@ -110,6 +124,7 @@ class RoundRect extends Collider {
 		return inside(p);
 	}
 
+	//ladies and gentlemen, heaps
 	public function collideCircle( c : Circle ) : Bool {
 		throw "Not implemented";
 	}

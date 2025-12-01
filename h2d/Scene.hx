@@ -225,7 +225,7 @@ class Scene extends Layers implements h3d.IDrawable implements hxd.SceneEvents.I
 	var window : hxd.Window;
 	@:allow(h2d.Interactive)
 	var events : hxd.SceneEvents;
-	var shapePoint : h2d.col.Point;
+	var shapePoint : h2d.col.old.Point;
 
 	/**
 		Create a new 2D scene. A default 2D scene is already available in `hxd.App.s2d`.
@@ -249,13 +249,15 @@ class Scene extends Layers implements h3d.IDrawable implements hxd.SceneEvents.I
 		offsetY = 0;
 		interactive = new Array();
 		eventListeners = new Array();
-		shapePoint = new h2d.col.Point();
+		shapePoint = new h2d.col.old.Point();
 		window = hxd.Window.getInstance();
 		posChanged = true;
 		haxe.Timer.delay(init, 0); //the funniest workaround i have ever scene for scene inits, this causes the init to happen on frame 1 instead of frame 0
 	}
 
-	//behold the dumbest combination of two function ever made
+	//you know, i just now realized sync is what is essentially but not actually the update function, so it should probably be on par with it
+	//=-honestly, i could probably turn this into a component instead of a requirement, as in doing s2d.autoUpdate() or some shit
+	//behold the dumbest combination of two functions ever made
 	/**
 	 * updates all children of the 2D object, managed directly by `hxd.App`
 	 * 
@@ -278,6 +280,7 @@ class Scene extends Layers implements h3d.IDrawable implements hxd.SceneEvents.I
 			
 
 	}
+	//this could be reduced into a local function
 	/**
 	 * updates the children of the children and the children of the children and the children of the children and...until it hits a snag and starts over
 	 * 

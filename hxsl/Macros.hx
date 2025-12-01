@@ -428,7 +428,8 @@ class Macros {
 							supFields.remove("clone");
 							csup = tsup.superClass;
 						} while( true);
-						var className = Std.string(cl);						var check = new Checker();
+						var className = Std.string(cl);
+						var check = new Checker();
 						check.loadShader = loadShader;
 						check.warning = function(msg,pos) {
 							haxe.macro.Context.warning(msg, pos);

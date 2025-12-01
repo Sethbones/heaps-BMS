@@ -1,4 +1,4 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
 
 /**

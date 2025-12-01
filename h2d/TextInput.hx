@@ -99,7 +99,7 @@ class TextInput extends Text {
 				cursorIndex = startIndex;
 				selectionRange = null;
 
-				var pt = new h2d.col.Point();
+				var pt = new h2d.Vector2();
 				var scene = getScene();
 				if( scene == null ) return; // was removed
 				scene.startCapture(function(e) {
@@ -568,7 +568,7 @@ class TextInput extends Text {
 
 	override function draw(ctx:RenderContext) {
 		if( inputWidth != null ) {
-			var h = localToGlobal(new h2d.col.Point(inputWidth, font.lineHeight));
+			var h = localToGlobal(new h2d.Vector2(inputWidth, font.lineHeight));
 			ctx.clipRenderZone(absX, absY, h.x - absX, h.y - absY);
 		}
 

@@ -1,0 +1,49 @@
+Bugs:
+undershooting - if someone has a monitor that runs at a crazy high refresh rate (like 500hz) -> this would be solved by implementing fixedUpdate and forcing the animations to time at a forced Frame Rate
+errors on frame rate beyond the monitor's resolution
+heck it desyncs in general, in a way that doesn't make any sense
+got it
+its because its going from 100 to 1000 and thus nothing can be in its range so it skips everything, which makes sense, because there's no proper overshooting logic
+this would've caused issues even on lower performances, and so it only makes sense that it breaks spectacularly
+in general i think checking based on the currentDuration is unreliable
+there's really no reason for me to check if its in the range of currentDuration if i can just check what's the current key and what's the next... i think.
+because why do i need to check if the key is within a certain zone when i already know for a fact it is in a certain zone because of the key index
+even then there's desyncs, which makes no sense because all layers play at the exact same time
+heck keyIndexes update at the exact same time
+yet it clearly doesn't here
+yeah even the fuckin drawing is identical, i think its just the collisionDraw lagging by a frame, keeping it still noticable
+also there's still no OVERSHOOTING logic, fun
+and its still crashing from high enough speed
+like imageLayer gives an access violation somehow, and the accumelator gives up, i think its just that it wasn't built to be able to stop
+okay the solution was just to not do an if statement but to instead do a while loop, learned something new
+and now for something else, because now like an emulator, to make it play faster without lagging i can do frame skipping, basically playing a lower fps at a higher speed, so basically timescale divides the FPS when its increased
+never mind its still dying on higher frame rates, it just doesn't crash anymore
+okay so the overshooting problem still persists, because it doesn't check for the changed key multiple times, it just says fuck, changes the number and leaves
+because as it currently stands a low enough frame rate/high enough speed causes the animationtimer to spit out a number bigger than the animation's duration (which in the currrent test is 625), so it can't even check for the next key because it will always be wrong. -> okay so, so far its fixed, i will keep this around till i know it's been fixed completely just to keep track of things
+
+
+
+on animswitch there's a single frame where no hitboxes spawn -> fixed by avoiding needing to completely recall the current animation -> fixed? needs more testing
+doesn't seem to be happening anymore, i'm going to say fixed but it'll be kept in mind -> its back, it seems to desync somehow, which makes me think its a draw problem, so it ends before the animation loops
+
+getcollisioninstances needs testing
+
+not a bug but if an object is spawned with just the constructor without playing anything it will just be blank
+this is a matter of subjectivity so it needs discussing post v1 release
+will likely end up just playing frame 1 from the first animation and then placing it as animation 0
+
+animation timing is not perfect, mainly due to the delta not being accurate enough -> this is a known engine bug, for which i'm unsure how to fix due to the reliance on haxe.timer.stamp ->  this issue has nothing to do with haxe.timer.stamp but sure is easy to blame it, i need to look at source codes from established game engines like raylib to see what's up
+|
+\/
+this would require the implementation of FixedUpdate, specifically for the animation system in the form of playbackFPS
+
+parent still doesn't do anything -> and likely wont for now
+
+discrete and continuous are still not a thing for collision -> likely won't be that way for a good while
+
+way too many casts, like every other if statement has a cast -> this cannot easily be fixed but it can be mitigated a bit by removing redundancys
+
+passing collision shapes between animations - being scrapped for now, purely due to complexity
+
+unchecked test cases:
+empty keys between other keys and null keys

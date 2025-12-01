@@ -35,10 +35,10 @@
 // 		so valid range should be limited to [-32768,32767] in order to prevent overflow while multiplying
 
 package hxd.clipper;
-import h2d.col.Point;
-import h2d.col.IPoint;
-import h2d.col.IPolygon;
-import h2d.col.IPolygons;
+import h2d.col.old.Point;
+import h2d.col.old.IPoint;
+import h2d.col.old.IPolygon;
+import h2d.col.old.IPolygons;
 
 private enum EdgeSide {
 	Left;

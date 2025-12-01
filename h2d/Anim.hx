@@ -210,10 +210,10 @@ class Anim extends Drawable{//do not attempt to use this as a base for an object
 
     //=-CONSTRUCTOR-=\\
     /**
-     * to get an idea for how to use, then check the samples 
+     * to get an idea for how to use, check the samples 
      * @param parent the object on which to animate
      * @param animationJSON the JSON animation config file
-     * @param sheet the spritesheet to animate
+     * @param sheet the spritesheet to manipulate for animating
      * @param hscriptparser the barely documented parser for hscript from string to expression taken from the parent object
      * @param hscriptinterpreter the barely documented interpreter for hscript from expression to actual use taken from the parent object
      */

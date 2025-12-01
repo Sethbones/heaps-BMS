@@ -1,5 +1,8 @@
 package hxd;
 
+//this class has a lot of duplicate functions that it just returns from Std, Why?
+//for what reason?
+//just call Math.
 class Math {
 
 	public static inline var PI = 3.14159265358979323;
@@ -9,19 +12,19 @@ class Math {
 	public static var POSITIVE_INFINITY(get, never) : Float;
 	public static var NEGATIVE_INFINITY(get, never) : Float;
 	public static var NaN(get, never) : Float;
-
+	//useless
 	static inline function get_POSITIVE_INFINITY() {
 		return std.Math.POSITIVE_INFINITY;
 	}
-
+	//useless
 	static inline function get_NEGATIVE_INFINITY() {
 		return std.Math.NEGATIVE_INFINITY;
 	}
-
+	//useless
 	static inline function get_NaN() {
 		return std.Math.NaN;
 	}
-
+	//useless
 	public static inline function isNaN(v:Float) {
 		return std.Math.isNaN(v);
 	}
@@ -45,14 +48,17 @@ class Math {
 		return std.Math.ffloor(v * exp + .49999) * neg / exp;
 	}
 
+	//useless
 	public static inline function floor( f : Float ) {
 		return std.Math.floor(f);
 	}
 
+	//useless
 	public static inline function ceil( f : Float ) {
 		return std.Math.ceil(f);
 	}
 
+	//useless
 	public static inline function round( f : Float ) {
 		return std.Math.round(f);
 	}
@@ -61,42 +67,52 @@ class Math {
 		return f < min ? min : f > max ? max : f;
 	}
 
+	//useless
 	public static inline function pow( v : Float, p : Float ) {
 		return std.Math.pow(v,p);
 	}
 
+	//useless
 	public static inline function cos( f : Float ) {
 		return std.Math.cos(f);
 	}
 
+	//useless
 	public static inline function sin( f : Float ) {
 		return std.Math.sin(f);
 	}
 
+	//useless
 	public static inline function tan( f : Float ) {
 		return std.Math.tan(f);
 	}
 
+	//useless
 	public static inline function acos( f : Float ) {
 		return std.Math.acos(f);
 	}
 
+	//useless
 	public static inline function asin( f : Float ) {
 		return std.Math.asin(f);
 	}
 
+	//useless
 	public static inline function atan( f : Float ) {
 		return std.Math.atan(f);
 	}
 
+	//useless
 	public static inline function sqrt( f : Float ) {
 		return std.Math.sqrt(f);
 	}
 
+	//useless
 	public static inline function invSqrt( f : Float ) {
 		return 1. / sqrt(f);
 	}
 
+	//useless
 	public static inline function atan2( dy : Float, dx : Float ) {
 		return std.Math.atan2(dy,dx);
 	}

@@ -1,12 +1,19 @@
-package h2d.col;
+package h2d.col.old;
 /**
 	from the looks of it, this file is unfinished/abandoned, its still seems usable, just not very polished, a lot of the collsion shapes are like this
-  
+
+	there's technically no reason for its existance, because realisticly you can just use polygons
+
+	heck technically there's no reason for any specific collision shape in 2D, as all shapes can just be recreated with polygons
+
+	except for rects and bounds since those aren't coded from points,
  
 	A simple triangle collider. now without a matching primitive to preview it.
 **/
 class Triangle extends Collider {
 
+	//i don't understand what the thought process here was
+	//What is the significance of this hyper specifc magic number 
 	static inline var UNDEF = 1.1315e-17;
 
 	/**
@@ -50,7 +57,7 @@ class Triangle extends Collider {
 		Result is cached between `getArea` and `getInvArea` on first call and altering `a`, `b`, or `c` afterwards will lead to incorrect value.
 	**/
 	public inline function getArea() {
-		if( area == UNDEF ) {
+		if( area == UNDEF ) {//this needs testing
 			area = ((a.y * b.x - a.x * b.y) + (b.y * c.x - b.x * c.y) + (c.y * a.x - c.x * a.y)) * -0.5;
 			invArea = 1 / area;
 		}

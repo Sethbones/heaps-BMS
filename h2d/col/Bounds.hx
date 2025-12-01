@@ -1,13 +1,20 @@
 package h2d.col;
 import hxd.Math;
+//UNFINISHED
+
 /**
+	the one thing that's not listed here is the fact that it's not meant to be used as is, it's used from an object
+
+	honestly i don't like it, the reason being that it just bloats the object class instead of being a component that adds on to it
+	because for all intents in purposes, this is a component class
+
 	A 2D bounding box often used for determining Object bounding area.
 
 	Bounds holds min/max coordinates of bounding box instead of it's position and size.
 	@see `Object.getBounds`
 	@see `Object.getSize`
 **/
-class Bounds extends Collider {
+class Bounds extends h2d.col.old.Collider {
 
 	/** X-axis left-most bounding box point. **/
 	public var xMin : Float;
@@ -46,10 +53,10 @@ class Bounds extends Collider {
 	/**
 		Converts bounding box to integer bounding box scaled by provided scalar `scale` (rounded down for `min` and up for `max`).
 	**/
-	public inline function toIBounds( scale = 1. ) : IBounds {
+	public inline function toIBounds( scale = 1. ) : h2d.col.old.IBounds {
 		var ix = Math.floor(x * scale);
 		var iy = Math.floor(y * scale);
-		return IBounds.fromValues(ix, iy, Math.ceil(xMax * scale) - ix, Math.ceil(yMax * scale) - iy);
+		return h2d.col.old.IBounds.fromValues(ix, iy, Math.ceil(xMax * scale) - ix, Math.ceil(yMax * scale) - iy);
 	}
 
 	/**
@@ -63,18 +70,18 @@ class Bounds extends Collider {
 		return intersects(b);
 	}
 
-	public inline function collideCircle( c : Circle ) : Bool {
+	public inline function collideCircle( c : h2d.col.old.Circle ) : Bool {
 		return c.collideBounds(this);
 	}
 
 	/**
-		Tests if the Point `p` is inside the bounding box.
+		Tests if the h2d.col.old.Point `p` is inside the bounding box.
 	**/
-	public inline function contains( p : Point ) : Bool {
+	public inline function contains( p : h2d.col.old.Point ) : Bool {
 		return p.x >= xMin && p.x < xMax && p.y >= yMin && p.y < yMax;
 	}
 
-	public function rayIntersection( r : Ray ) : Float {
+	public function rayIntersection( r : h2d.col.old.Ray ) : Float {
 		var minTx = (xMin - r.px) / r.lx;
 		var minTy = (yMin - r.py) / r.ly;
 		var maxTx = (xMax - r.px) / r.lx;
@@ -96,7 +103,7 @@ class Bounds extends Collider {
 	/**
 	 * Same as distance but does not perform sqrt
 	 */
-	 public inline function distanceSq( p : Point ) {
+	public inline function distanceSq( p : h2d.col.old.Point ) {//unholy black magic
 		var dx = p.x < xMin ? xMin - p.x : p.x > xMax ? p.x - xMax : 0.;
 		var dy = p.y < yMin ? yMin - p.y : p.y > yMax ? p.y - yMax : 0.;
 		return dx * dx + dy * dy;
@@ -105,7 +112,7 @@ class Bounds extends Collider {
 	/**
 	 * Returns the distance betwen the point and the bounds. Or 0 if the point is inside the bounds.
 	 */
-	public inline function distance( p : Point ) {
+	public inline function distance( p : h2d.col.old.Point ) {
 		return Math.sqrt(distanceSq(p));
 	}
 
@@ -120,9 +127,9 @@ class Bounds extends Collider {
 	}
 
 	/**
-		Adds the Point `p` to the bounding box, expanding min/max when necessary.
+		Adds the h2d.col.old.Point `p` to the bounding box, expanding min/max when necessary.
 	**/
-	public inline function addPoint( p : Point ) {
+	public inline function addPoint( p : h2d.col.old.Point ) {
 		if( p.x < xMin ) xMin = p.x;
 		if( p.x > xMax ) xMax = p.x;
 		if( p.y < yMin ) yMin = p.y;
@@ -154,17 +161,17 @@ class Bounds extends Collider {
 	}
 
 	/**
-		Sets the `Bounds.xMin` and `Bounds.yMin` to values in the given Point `p`.
+		Sets the `Bounds.xMin` and `Bounds.yMin` to values in the given h2d.col.old.Point `p`.
 	**/
-	public inline function setMin( p : Point ) {
+	public inline function setMin( p : h2d.col.old.Point ) {
 		xMin = p.x;
 		yMin = p.y;
 	}
 
 	/**
-		Sets the `Bounds.xMax` and `Bounds.yMax` to values in the given Point `p`.
+		Sets the `Bounds.xMax` and `Bounds.yMax` to values in the given h2d.col.old.Point `p`.
 	**/
-	public inline function setMax( p : Point ) {
+	public inline function setMax( p : h2d.col.old.Point ) {
 		xMax = p.x;
 		yMax = p.y;
 	}
@@ -278,31 +285,31 @@ class Bounds extends Collider {
 	}
 
 	/**
-		Returns a new Point containing `Bounds.xMin` and `Bounds.yMin`.
+		Returns a new h2d.col.old.Point containing `Bounds.xMin` and `Bounds.yMin`.
 	**/
-	public inline function getMin() : Point {
-		return new Point(xMin, yMin);
+	public inline function getMin() : h2d.col.old.Point {
+		return new h2d.col.old.Point(xMin, yMin);
 	}
 
 	/**
-		Returns a new Point containing the center coordinate of the bounding box.
+		Returns a new h2d.col.old.Point containing the center coordinate of the bounding box.
 	**/
-	public inline function getCenter() : Point {
-		return new Point((xMin + xMax) * 0.5, (yMin + yMax) * 0.5);
+	public inline function getCenter() : h2d.col.old.Point {
+		return new h2d.col.old.Point((xMin + xMax) * 0.5, (yMin + yMax) * 0.5);
 	}
 
 	/**
-		Returns a new Point containing size of the bounding box.
+		Returns a new h2d.col.old.Point containing size of the bounding box.
 	**/
-	public inline function getSize() : Point {
-		return new Point(xMax - xMin, yMax - yMin);
+	public inline function getSize() : h2d.col.old.Point {
+		return new h2d.col.old.Point(xMax - xMin, yMax - yMin);
 	}
 
 	/**
-		Returns a new Point containing `Bounds.xMax` and `Bounds.yMax`.
+		Returns a new h2d.col.old.Point containing `Bounds.xMax` and `Bounds.yMax`.
 	**/
-	public inline function getMax() : Point {
-		return new Point(xMax, yMax);
+	public inline function getMax() : h2d.col.old.Point {
+		return new h2d.col.old.Point(xMax, yMax);
 	}
 
 	/**
@@ -392,7 +399,7 @@ class Bounds extends Collider {
 	public inline function toCircle() {
 		var dx = xMax - xMin;
 		var dy = yMax - yMin;
-		return new Circle((xMin + xMax) * 0.5, (yMin + yMax) * 0.5, Math.sqrt(dx * dx + dy * dy) * 0.5);
+		return new h2d.col.old.Circle((xMin + xMax) * 0.5, (yMin + yMax) * 0.5, Math.sqrt(dx * dx + dy * dy) * 0.5);
 	}
 
 	/**
@@ -414,7 +421,7 @@ class Bounds extends Collider {
 	/**
 		Returns a new Bounds instance from given `min`/`max` Points.
 	**/
-	public static inline function fromPoints( min : Point, max : Point ) : Bounds {
+	public static inline function fromPoints( min : h2d.col.old.Point, max : h2d.col.old.Point ) : Bounds {
 		var b = new Bounds();
 		b.setMin(min);
 		b.setMax(max);

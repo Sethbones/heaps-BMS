@@ -1,0 +1,16 @@
+this document is for the hypothetical editor
+
+scenes being their own seperate files are a neccesity
+you can't assign coordinates for objects as is, sure you can run a custom script with a custom file format like tiled maps
+but you run into the same issue, something is still needed for map coordinates
+
+currently coordinates for objects are assigned by either manually creating a map format or using tiled with the (currently borked) importer
+
+so why not simplify the process?
+
+scn files have an object tree of what to spawn and in what order
+as well as locations to spawn each of them
+the object specific variables can just be done by the object itself
+
+as for tiles and maps
+since there's a visual editor, tilegroups can just be created dynamically

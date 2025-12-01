@@ -1,3 +1,10 @@
+collision here is kind of messy
+compare it to a different engine that keeps collision as a component object that contains a shape as a seperate class
+
+in here:
+point and collision shapes both use completely seperate classes with completely different uses
+
+
 with the way collision is designed, there's no option to easily visualize the collision's shape
 not only that, while primitives can be attached to an object and be scaled and moved alongside it, this is simply not possible here as it expects you to manually attach the collision to another object's x and y.
 this is really stupid, what if i want to scale up a collision, why should i manually apply it instead of letting it figure it out by itself

@@ -211,7 +211,7 @@ class Vector2Impl #if apicheck implements h2d.impl.PointApi<Vector2,Matrix> #end
 		i.e W.I.P
 	**/
 	public inline function toIPoint( scale = 1. ) {
-		return new h2d.col.IPoint(Math.round(x * scale), Math.round(y * scale));
+		return new h2d.col.old.IPoint(Math.round(x * scale), Math.round(y * scale));
 	}
 
 	/**
@@ -247,7 +247,7 @@ class Vector2Impl #if apicheck implements h2d.impl.PointApi<Vector2,Matrix> #end
 	// to deprecate at final refactoring. //this code chunk is about a year old, i have no idea what this means 
 	public inline function toPoint() return this.clone(); //pointless atm and will likely be removed soon
 	public inline function toVector3() return new h3d.Vector(this.x,this.y,0);
-	public inline function toVector4() return new h3d.Vector4(this.x,this.y);
+	public inline function toVector4() return new h3d.Vector4(this.x,this.y); //vscode's colors bug out on this line for some reason
 
 	@:op(a *= b) public inline function scale(v:Float) this.scale(v);
 	@:op(a * b) public inline function scaled(v:Float) return this.scaled(v);

@@ -1,5 +1,28 @@
-package h2d.col;
+package h2d.col.old;
 import hxd.Math;
+
+/**
+ * i don't get the point of this
+ * 
+ * Integer collision feels like a leftover from times long gone
+ * 
+ * basically in consoles before the PS3, it was not common to use delta time,
+ * mainly because it was computationally expensive but also because refresh rates weren't really a thing like they're now
+ * 
+ * floats were also computationally expensive, and were generally a last resort.
+ * 
+ * most games aimed for either 30 or 60 fps, and in rare occasions some odd number in the middle (PS1 games are a good example)
+ * 
+ * which meant european games ran slower at 50 fps and 25 fps
+ * 
+ * in some cases seperate versions were created for the different markets (Sonic 2 is a good example)
+ * 
+ * so where am i going with this?
+ * 
+ * since games didn't use deltatime, they just calculated movement and physics by integers, i,e this.x += 1; instead of like this.x += delta * movespeed;
+ * 
+ * the question for the file is, since flash does support floats, what's the purpose of its existance?
+ */
 
 /**
 	An integer-based point.

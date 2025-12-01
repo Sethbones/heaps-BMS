@@ -1,5 +1,9 @@
 package h2d.col;
 
+//i have no idea
+//this was added in 2013 and wasn't updated since
+//thankfully it does have some documentation but i still have no idea what a polynomial means in this context and for the why and how its in the folder with collision
+
 private class Matrix {
 	public var data : haxe.ds.Vector<haxe.ds.Vector<Float>>;
 	public var m : Int;

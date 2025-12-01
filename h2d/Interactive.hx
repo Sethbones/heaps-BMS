@@ -65,7 +65,7 @@ class Interactive extends Object implements hxd.SceneEvents.Interactive {
 		Detailed shape collider for Interactive.
 		If set, `width` and `height` properties are ignored for collision checks.
 	**/
-	public var shape : h2d.col.Collider;
+	public var shape : h2d.col.old.Collider;
 	/**
 		Detailed shape X offset from Interactive.
 	**/
@@ -75,14 +75,15 @@ class Interactive extends Object implements hxd.SceneEvents.Interactive {
 	**/
 	public var shapeY : Float = 0;
 
+	//variables are not specified leaving them nulled, or at least vscode has no idea how to read them
 	/**
 		Create a new Interactive with specified parameters. `width`, `height` and `parent` with optional detailed `shape`.
-		@param width The width of the Interactive hitbox.
-		@param height The height of the Interactive hitbox.
+		@param width The width of the Interactive hitbox. //apparently ignored if shape is set but its not an optional variable
+		@param height The height of the Interactive hitbox. //apparently ignore if shape is set but its not an optional variable
 		@param parent An optional parent `h2d.Object` instance to which Interactive adds itself if set.
-		@param shape An optional detailed Interactive hitbox.
+		@param shape An optional detailed Interactive hitbox. 
 	**/
-	public function new( width, height, ?parent, ?shape ) {
+	public function new( width:Float, height:Float, ?parent:h2d.Object, ?shape:h2d.col.old.Collider ) {
 		super(parent);
 		this.width = width;
 		this.height = height;

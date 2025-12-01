@@ -33,6 +33,8 @@ class Layers extends Object {
 		add(s, -1);
 	}
 
+	//this doesn't return the instance of what's been added, which is different from how constructors usually work
+	//this was probably done for a reason, which needs investigating
 	/**
 	 * Adds a child object `s` at the end of the given `layer`.
 	 * @param s An object to be added.
@@ -54,7 +56,7 @@ class Layers extends Object {
 		while ( layer >= layerCount )
 			layersIndexes[layerCount++] = children.length;
 		
-		if ( index != -1 ) {
+		if ( index != -1 ) {//you know, this checks for the default -1, but not any invalid number under it //i was correct, inputting -2 causes a crash
 			// Prevent inserting out of layer bounds.
 			if ( layer == 0 )
 				super.addChildAt(s, hxd.Math.imax(0, hxd.Math.imin(index, layersIndexes[layer])));
@@ -236,7 +238,7 @@ class Layers extends Object {
 		Causes `Object.onHierarchyChanged` on moved children.
 		@param layer An index of the layer to sort.
 	 */
-	public function ysort( layer : Int ) {
+	public function ysort( layer : Int ) {//the comment makes it sound simple
 		if( layer >= layerCount ) return;
 		var start = layer == 0 ? 0 : layersIndexes[layer - 1];
 		var max = layersIndexes[layer];
